@@ -31,33 +31,59 @@
         .card {
             background: #34495e;
             padding: 20px;
-            border-radius: 8px;
+            border-radius: 12px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
         }
         .card h2 {
             color: #1abc9c;
             font-size: 1.5em;
             margin-bottom: 10px;
         }
-        .card p, .card ul {
+        .card p {
             font-size: 1.1em;
             line-height: 1.6em;
             margin: 10px 0;
         }
-        .card ul {
-            list-style-type: none;
-            padding: 0;
+        .card-list {
+            display: flex;
+            flex-direction: column;
         }
-        .card ul li::before {
-            content: "• ";
-            color: #1abc9c;
+        .card-list .card {
+            margin-bottom: 10px;
         }
-        .card a {
-            color: #1abc9c;
+        .repository-card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 15px;
+            background-color: #1abc9c;
+            color: #2c3e50;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+        .repository-card:hover {
+            background-color: #16a085;
+        }
+        .repository-card .repo-info {
+            flex-grow: 1;
+        }
+        .repository-card .repo-info h3 {
+            margin: 0;
+            font-size: 1.2em;
+        }
+        .repository-card .repo-info p {
+            margin: 5px 0 0;
+            font-size: 0.9em;
+        }
+        .repository-card a {
             text-decoration: none;
+            color: #ecf0f1;
         }
-        .card a:hover {
-            text-decoration: underline;
+        #stats canvas {
+            margin-top: 10px;
+            background: #ecf0f1;
+            border-radius: 8px;
         }
     </style>
 </head>
@@ -66,7 +92,7 @@
         <!-- Left Column -->
         <div class="card">
             <h2>Latest Updates</h2>
-            <div id="latest-updates">
+            <div id="latest-updates" class="card-list">
                 <p>Loading latest updates...</p>
             </div>
         </div>
@@ -75,39 +101,61 @@
         <div class="card">
             <h2>About Me & Projects</h2>
             <p>I'm Frenky Dema, a passionate mobile app developer with a specialization in Flutter. I enjoy creating efficient and user-friendly applications that provide great user experiences.</p>
-            <h2>Key Projects</h2>
-            <ul>
-                <li><strong>risto_widgets</strong>: Customizable UI widgets for Flutter.</li>
-                <li><strong>bloc_infinity_list</strong>: Infinite scrolling ListView with BLoC integration.</li>
-                <li><strong>qrcode_barcode_scanner</strong>: Barcode scanner library for keyboard interface devices.</li>
-                <li><strong>sunmi_task_printer</strong>: Package for managing Sunmi printers on Android.</li>
-            </ul>
+            <h2>My Repositories</h2>
+            <div id="repositories" class="card-list">
+                <p>Loading repositories...</p>
+            </div>
         </div>
 
         <!-- Right Column -->
         <div class="card">
             <h2>Statistics</h2>
             <div id="stats">
-                <p>Loading statistics...</p>
+                <canvas id="languageChart" width="400" height="200"></canvas>
             </div>
         </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         // Fetch latest updates from GitHub API
         fetch('https://api.github.com/users/FrenkyDema/events')
             .then(response => response.json())
             .then(data => {
                 const updates = document.getElementById('latest-updates');
-                updates.innerHTML = '<ul>' + data.slice(0, 5).map(event => {
-                    return `<li><strong>${event.repo.name}</strong>: ${event.type} on ${new Date(event.created_at).toLocaleDateString()}</li>`;
-                }).join('') + '</ul>';
+                updates.innerHTML = data.slice(0, 5).map(event => {
+                    return `
+                        <div class="card">
+                            <strong>${event.repo.name}</strong>: ${event.type} on ${new Date(event.created_at).toLocaleDateString()}
+                        </div>`;
+                }).join('');
             })
             .catch(error => {
                 document.getElementById('latest-updates').innerHTML = '<p>Could not load updates.</p>';
             });
 
-        // Fetch statistics using GitHub API
+        // Fetch repositories and display them in reverse order
+        fetch('https://api.github.com/users/FrenkyDema/repos')
+            .then(response => response.json())
+            .then(repos => {
+                const reposContainer = document.getElementById('repositories');
+                repos.sort((a, b) => new Date(b.created_at) - new Date(a.created_at)); // Sort by creation date
+                reposContainer.innerHTML = repos.map(repo => {
+                    return `
+                        <div class="repository-card">
+                            <div class="repo-info">
+                                <h3>${repo.name}</h3>
+                                <p>${repo.description || 'No description available.'}</p>
+                            </div>
+                            <a href="${repo.html_url}" target="_blank">View</a>
+                        </div>`;
+                }).join('');
+            })
+            .catch(error => {
+                document.getElementById('repositories').innerHTML = '<p>Could not load repositories.</p>';
+            });
+
+        // Fetch statistics using GitHub API and create chart
         fetch('https://api.github.com/users/FrenkyDema/repos')
             .then(response => response.json())
             .then(repos => {
@@ -121,10 +169,26 @@
                     }
                 });
 
-                const stats = document.getElementById('stats');
-                stats.innerHTML = '<ul>' + Object.keys(languages).map(lang => {
-                    return `<li>${lang}: ${languages[lang]} repos</li>`;
-                }).join('') + '</ul>';
+                const ctx = document.getElementById('languageChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'pie',
+                    data: {
+                        labels: Object.keys(languages),
+                        datasets: [{
+                            data: Object.values(languages),
+                            backgroundColor: ['#1abc9c', '#3498db', '#9b59b6', '#e74c3c', '#f1c40f'],
+                            borderColor: '#2c3e50',
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                            },
+                        },
+                    }
+                });
             })
             .catch(error => {
                 document.getElementById('stats').innerHTML = '<p>Could not load statistics.</p>';
