@@ -67,7 +67,7 @@ function loadMoreRepositories() {
 
     // Hide load more button if all repositories are loaded
     if (repoIndex >= repositoriesData.length) {
-        document.getElementById('load-more-repos-btn').style.display = 'none';
+        document.getElementById('load-more-btn').style.display = 'none';
     } else {
         // Scroll smoothly to the new repositories
         reposContainer.lastElementChild.scrollIntoView({ behavior: 'smooth' });
