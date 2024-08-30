@@ -30,27 +30,9 @@ document.addEventListener('DOMContentLoaded', () => {
             })
             .then(data => {
                 console.log('Repositories fetched successfully:', data);
+
                 if (data && data.length > 0) {
-                    console.log('Repositories data:', data);
-                    document.getElementById('repositories').innerHTML = data.map(repo => `
-                        <div class="repository-card">
-                            <div class="repository-header">
-                                <h3>${repo.name} ${repo.fork ? '<i class="fas fa-code-branch" title="Forked Repository"></i>' : ''}</h3>
-                                <a href="${repo.html_url}" target="_blank">View</a>
-                            </div>
-                            <div class="repository-description">
-                                ${repo.description || 'No description available.'}
-                            </div>
-                            <div class="repository-footer">
-                                <div class="language">
-                                    ${repo.language || 'Unknown'}
-                                </div>
-                                <div class="stars">
-                                    &#9733; ${repo.stargazers_count}
-                                </div>
-                            </div>
-                        </div>
-                    `).join('');
+                    displayRepositories(data);
                 } else {
                     console.log('No repositories found');
                     document.getElementById('repositories').innerHTML = '<p>No repositories found.</p>';
@@ -61,6 +43,28 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.getElementById('repositories').innerHTML = `
                     <p>Could not load repositories. Please try again later.</p>`;
             });
+    }
+
+    // Function to display repositories
+    function displayRepositories(repos) {
+        const reposContainer = document.getElementById('repositories');
+        console.log('Displaying repositories:', repos);
+
+        if (!repos || repos.length === 0) {
+            reposContainer.innerHTML = '<p>No repositories found.</p>';
+            return;
+        }
+
+        // Basic rendering of repository names to isolate the issue
+        reposContainer.innerHTML = repos.map(repo => `
+            <div>
+                <h3>${repo.name}</h3>
+                <p>${repo.description || 'No description available.'}</p>
+                <p>Language: ${repo.language || 'Unknown'}</p>
+                <p>Stars: ${repo.stargazers_count}</p>
+                <a href="${repo.html_url}" target="_blank">View Repository</a>
+            </div>
+        `).join('');
     }
 
     // Call the function to fetch and display repositories
