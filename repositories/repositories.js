@@ -15,10 +15,13 @@ function fetchRepositories() {
             console.log('Repositories fetched:', data);
             repositoriesData = data;
 
-            // Clear the loading message
+            // Explicitly remove the "Loading repositories..." <p> element
             const reposContainer = document.getElementById('repositories');
-            reposContainer.innerHTML = ''; // Clear the loading label
-            console.log('Cleared loading message.');
+            const loadingMessage = reposContainer.querySelector('p');
+            if (loadingMessage) {
+                reposContainer.removeChild(loadingMessage);
+                console.log('Loading message removed.');
+            }
 
             loadMoreRepositories(); // Load the first set of repositories
         })
