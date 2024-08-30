@@ -55,6 +55,9 @@ function loadMoreUpdates() {
     // Hide load more button if all updates are loaded
     if (updateIndex >= updateData.length) {
         document.getElementById('load-more-btn').style.display = 'none';
+    } else {
+        // Scroll smoothly to the new updates
+        timelineContainer.lastElementChild.scrollIntoView({ behavior: 'smooth' });
     }
 }
 
