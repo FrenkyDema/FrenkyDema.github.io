@@ -3,306 +3,266 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nicolas Garbari - LinkedIn Profile</title>
+    <meta name="description" content="Frenky Dema's personal GitHub profile page">
+    <meta name="author" content="Frenky Dema">
+    <meta name="google-site-verification" content="SDM_hhwQSY1XMlm4BxjY4vTTj0JuCrznLgCo4_a5YXI" />
+    <title>Frenky Dema - Profile</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #2c3e50;
+            color: #ecf0f1;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-            background-color: #f4f4f4;
-            color: #333;
-        }
-
-        .navbar {
             display: flex;
-            justify-content: space-around;
-            background-color: #1a1a2e;
-            padding: 1rem;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            transition: background-color 0.3s;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
         }
-
-        .navbar li {
-            list-style: none;
-            position: relative;
-        }
-
-        .navbar a {
-            color: #e94560;
-            text-decoration: none;
-            padding: 0.5rem 1rem;
-            transition: background-color 0.3s, color 0.3s;
-            border-radius: 5px;
-            display: block;
-        }
-
-        .navbar a:hover {
-            background-color: #0f3460;
-            color: #fff;
-        }
-
-        .navbar li:hover > ul {
-            display: block;
-        }
-
-        .navbar ul {
-            display: none;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            background-color: #16213e;
-            padding: 0;
-            margin: 0;
-            list-style: none;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-            border-radius: 5px;
-        }
-
-        .navbar ul li a {
-            padding: 1rem;
-            white-space: nowrap;
-        }
-
-        .navbar ul li a:hover {
-            background-color: #0f3460;
-        }
-
-        .section {
-            padding: 2rem;
-            margin: 2rem auto;
+        .container {
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr;
+            gap: 20px;
             max-width: 1200px;
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            padding: 20px;
+            box-sizing: border-box;
         }
-
         .card {
-            background-color: #eaeaea;
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s;
+            background: #34495e;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
         }
-
-        .card:hover {
-            transform: translateY(-5px);
+        .card h2 {
+            color: #1abc9c;
+            font-size: 1.5em;
+            margin-bottom: 10px;
         }
-
-        .profile-picture {
-            width: 150px;
-            height: 150px;
+        .repository-card {
+            display: flex;
+            flex-direction: column;
+            background-color: #2c3e50;
+            border: 1px solid #444;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 15px;
+        }
+        .repository-card:hover {
+            background-color: #34495e;
+            border-color: #1abc9c;
+        }
+        .repository-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .repository-header h3 {
+            margin: 0;
+            font-size: 1.2em;
+            color: #1abc9c;
+        }
+        .repository-header a {
+            text-decoration: none;
+            font-size: 0.9em;
+            color: #1abc9c;
+            background-color: #1abc9c1a;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .repository-header a:hover {
+            background-color: #1abc9c33;
+        }
+        .repository-description {
+            margin-bottom: 10px;
+            font-size: 1em;
+            color: #ecf0f1;
+        }
+        .repository-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9em;
+            color: #bdc3c7;
+        }
+        .repository-footer .language {
+            display: flex;
+            align-items: center;
+        }
+        .repository-footer .language span {
+            width: 12px;
+            height: 12px;
             border-radius: 50%;
-            margin-bottom: 1rem;
-            border: 4px solid #e94560;
+            display: inline-block;
+            margin-right: 5px;
         }
-
-        h1, h2 {
-            color: #16213e;
+        .repository-footer .language--color {
+            background-color: #e74c3c; /* default language color */
         }
-
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
-        }
-
-        h2 {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-        }
-
-        p, li {
-            color: #333;
-            margin-bottom: 0.5rem;
-        }
-
-        footer {
-            text-align: center;
-            padding: 1.5rem;
-            background-color: #1a1a2e;
-            color: #e94560;
-            margin-top: 2rem;
-            border-radius: 0 0 10px 10px;
-        }
-
+        /* Media Queries for Responsive Design */
         @media (max-width: 768px) {
-            .navbar {
+            .container {
+                grid-template-columns: 1fr;
+            }
+            .repository-card {
                 flex-direction: column;
-                align-items: center;
+                align-items: flex-start;
             }
+        }
 
-            .navbar a {
-                padding: 0.5rem;
+        @media (max-width: 480px) {
+            .card {
+                padding: 15px;
             }
-
-            .section {
-                padding: 1rem;
-                margin: 1rem auto;
+            .card h2 {
+                font-size: 1.3em;
             }
-
-            .profile-picture {
-                width: 100px;
-                height: 100px;
+            .repository-card h3 {
+                font-size: 1.1em;
             }
-
-            h1 {
-                font-size: 2rem;
-            }
-
-            h2 {
-                font-size: 1.5rem;
+            .repository-card p {
+                font-size: 0.8em;
             }
         }
     </style>
 </head>
 <body>
-    <header>
-        <nav>
-            <ul class="navbar">
-                <li><a href="#profile">Profile</a></li>
-                <li><a href="#experience">Experience</a></li>
-                <li>
-                    <a href="#skills">Skills</a>
-                    <ul>
-                        <li><a href="#skills-frontend">Frontend</a></li>
-                        <li><a href="#skills-backend">Backend</a></li>
-                        <li><a href="#skills-ml">Machine Learning</a></li>
-                    </ul>
-                </li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <section id="profile" class="section">
+    <div class="container">
+        <!-- Left Column -->
         <div class="card">
-            <img id="profile-picture" src="" alt="Profile Picture" class="profile-picture">
-            <h1 id="name">Nicolas Garbari</h1>
-            <p id="headline">Software Engineer | AI Enthusiast | Web Developer</p>
-            <p id="location">Location: Trento, Italy</p>
-            <a href="https://www.linkedin.com/in/nicolas-garbari-96855b223/" target="_blank">View LinkedIn</a>
+            <h2>Latest Updates</h2>
+            <div id="latest-updates" class="card-list">
+                <p>Loading latest updates...</p>
+            </div>
         </div>
-    </section>
 
-    <section id="experience" class="section">
+        <!-- Center Column -->
         <div class="card">
-            <h2>Experience</h2>
-            <ul id="experience-list">
-                <!-- Experience data will be injected here -->
-            </ul>
+            <h2>About Me & Projects</h2>
+            <p>I'm Frenky Dema, a passionate mobile app developer with a specialization in Flutter. I enjoy creating efficient and user-friendly applications that provide great user experiences.</p>
+            <h2>My Repositories</h2>
+            <div id="repositories" class="card-list">
+                <p>Loading repositories...</p>
+            </div>
         </div>
-    </section>
 
-    <section id="skills" class="section">
+        <!-- Right Column -->
         <div class="card">
-            <h2>Skills</h2>
-            <ul id="skills-list">
-                <!-- Skills data will be injected here -->
-            </ul>
+            <h2>Statistics</h2>
+            <div id="stats">
+                <canvas id="languageChart" width="400" height="200"></canvas>
+            </div>
         </div>
-    </section>
+    </div>
 
-    <section id="projects" class="section">
-        <div class="card">
-            <h2>Projects</h2>
-            <ul id="projects-list">
-                <!-- Projects data will be injected here -->
-            </ul>
-        </div>
-    </section>
-
-    <section id="contact" class="section">
-        <div class="card">
-            <h2>Contact</h2>
-            <p>Email: nicolas@example.com</p>
-            <p>Phone: +39 123 456 7890</p>
-        </div>
-    </section>
-
-    <footer>
-        <p>© 2024 Nicolas Garbari. All Rights Reserved.</p>
-    </footer>
-
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const navbarLinks = document.querySelectorAll('.navbar a');
+        // Fetch latest updates from GitHub API
+        fetch('https://api.github.com/users/FrenkyDema/events')
+            .then(response => response.json())
+            .then(data => {
+                const updates = document.getElementById('latest-updates');
+                updates.innerHTML = data.slice(0, 5).map(event => {
+                    return `
+                        <div class="card">
+                            <strong>${event.repo.name}</strong>: ${event.type} on ${new Date(event.created_at).toLocaleDateString()}
+                        </div>`;
+                }).join('');
+            })
+            .catch(error => {
+                document.getElementById('latest-updates').innerHTML = '<p>Could not load updates.</p>';
+            });
 
-            navbarLinks.forEach(link => {
-                link.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const targetId = this.getAttribute('href').substring(1);
-                    const targetSection = document.getElementById(targetId);
+        // Fetch repositories and display them in reverse order
+        fetch('https://api.github.com/users/FrenkyDema/repos')
+            .then(response => response.json())
+            .then(repos => {
+                const reposContainer = document.getElementById('repositories');
+                repos.sort((a, b) => new Date(b.created_at) - new Date(a.created_at)); // Sort by creation date
+                reposContainer.innerHTML = repos.map(repo => {
+                    return `
+                        <div class="repository-card">
+                            <div class="repository-header">
+                                <h3>${repo.name}</h3>
+                                <a href="${repo.html_url}" target="_blank">View</a>
+                            </div>
+                            <div class="repository-description">
+                                ${repo.description || 'No description available.'}
+                            </div>
+                            <div class="repository-footer">
+                                <div class="language">
+                                    <span class="language--color" style="background-color: ${getLanguageColor(repo.language)};"></span>
+                                    ${repo.language || 'Unknown'}
+                                </div>
+                                <div class="stars">
+                                    &#9733; ${repo.stargazers_count}
+                                </div>
+                            </div>
+                        </div>`;
+                }).join('');
+            })
+            .catch(error => {
+                document.getElementById('repositories').innerHTML = '<p>Could not load repositories.</p>';
+            });
 
-                    window.scrollTo({
-                        top: targetSection.offsetTop,
-                        behavior: 'smooth'
-                    });
+        // Fetch statistics using GitHub API and create chart
+        fetch('https://api.github.com/users/FrenkyDema/repos')
+            .then(response => response.json())
+            .then(repos => {
+                const languages = {};
+                repos.forEach(repo => {
+                    if (repo.language) {
+                        if (!languages[repo.language]) {
+                            languages[repo.language] = 0;
+                        }
+                        languages[repo.language]++;
+                    }
                 });
+
+                const ctx = document.getElementById('languageChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'pie',
+                    data: {
+                        labels: Object.keys(languages),
+                        datasets: [{
+                            data: Object.values(languages),
+                            backgroundColor: ['#1abc9c', '#3498db', '#9b59b6', '#e74c3c', '#f1c40f'],
+                            borderColor: '#2c3e50',
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                            },
+                        },
+                    }
+                });
+            })
+            .catch(error => {
+                document.getElementById('stats').innerHTML = '<p>Could not load statistics.</p>';
             });
 
-            // Change navbar background on scroll
-            window.addEventListener('scroll', function() {
-                const navbar = document.querySelector('.navbar');
-                if (window.scrollY > 50) {
-                    navbar.style.backgroundColor = '#0f3460';
-                } else {
-                    navbar.style.backgroundColor = '#1a1a2e';
-                }
-            });
-
-            // Simulate fetching data from LinkedIn API
-            const profileData = {
-                name: "Nicolas Garbari",
-                headline: "Software Engineer | AI Enthusiast | Web Developer",
-                location: "Trento, Italy",
-                profilePicture: "profile_picture.jpg",
-                experience: [
-                    "Software Engineer at Company X",
-                    "Web Developer at Company Y",
-                    "AI Researcher at University Z"
-                ],
-                skills: [
-                    "JavaScript, HTML, CSS",
-                    "Python, Machine Learning",
-                    "React, Node.js"
-                ],
-                projects: [
-                    "Project A - Description",
-                    "Project B - Description",
-                    "Project C - Description"
-                ]
+        function getLanguageColor(language) {
+            const colors = {
+                "JavaScript": "#f1e05a",
+                "Python": "#3572A5",
+                "Java": "#b07219",
+                "```javascript
+                "Python": "#3572A5",
+                "Java": "#b07219",
+                "HTML": "#e34c26",
+                "CSS": "#563d7c",
+                "C++": "#f34b7d",
+                // Add more language colors as needed
             };
-
-            // Injecting data into the HTML
-            document.getElementById('name').textContent = profileData.name;
-            document.getElementById('headline').textContent = profileData.headline;
-            document.getElementById('location').textContent = profileData.location;
-            document.getElementById('profile-picture').src = profileData.profilePicture;
-
-            const experienceList = document.getElementById('experience-list');
-            profileData.experience.forEach(item => {
-                const li = document.createElement('li');
-                li.textContent = item;
-                experienceList.appendChild(li);
-            });
-
-            const skillsList = document.getElementById('skills-list');
-            profileData.skills.forEach(item => {
-                const li = document.createElement('li');
-                li.textContent = item;
-                skillsList.appendChild(li);
-            });
-
-            const projectsList = document.getElementById('projects-list');
-            profileData.projects.forEach(item => {
-                const li = document.createElement('li');
-                li.textContent = item;
-                projectsList.appendChild(li);
-            });
-        });
+            return colors[language] || '#e74c3c'; // Default color if language not found
+        }
     </script>
 </body>
 </html>
