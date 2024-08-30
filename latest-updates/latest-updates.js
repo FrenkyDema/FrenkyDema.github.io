@@ -61,7 +61,7 @@ function loadMoreUpdates() {
     }
 }
 
-document.getElementById('load-more-btn').addEventListener('click', loadMoreUpdates);
+document.getElementById('load-more-updates-btn').addEventListener('click', loadMoreUpdates);
 
 // Initialize updates on page load
 fetchUpdates();
