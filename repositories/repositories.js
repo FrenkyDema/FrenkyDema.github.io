@@ -1,6 +1,18 @@
 let repositories = [];
 
-// Fetch the repositories from GitHub
+// Funzione per prendere il colore della lingua
+function getLanguageColor(language) {
+    const colors = {
+        JavaScript: "#f1e05a",
+        Python: "#3572A5",
+        Dart: "#00B4AB",
+        Java: "#b07219",
+        // Aggiungi altri colori se necessario
+    };
+    return colors[language] || '#e74c3c'; // Default color
+}
+
+// Fetch delle repository da GitHub
 function fetchRepositories() {
     fetch('https://api.github.com/users/FrenkyDema/repos')
         .then(response => {
@@ -14,12 +26,12 @@ function fetchRepositories() {
             displayRepositories(repositories);
         })
         .catch(error => {
-            console.error('There has been a problem with your fetch operation:', error);
+            console.error('Errore durante il fetch delle repository:', error);
             document.getElementById('repositories').innerHTML = '<p>Could not load repositories.</p>';
         });
 }
 
-// Display the fetched repositories
+// Funzione per mostrare le repository
 function displayRepositories(repos) {
     const reposContainer = document.getElementById('repositories');
 
@@ -50,7 +62,7 @@ function displayRepositories(repos) {
     `).join('');
 }
 
-// Filter the repositories based on the selected options
+// Funzione per filtrare le repository
 function filterRepositories() {
     const languageFilter = document.getElementById('languageFilter').value;
     const starsFilter = parseInt(document.getElementById('starsFilter').value, 10);
@@ -66,13 +78,13 @@ function filterRepositories() {
     displayRepositories(filteredRepos);
 }
 
-// Toggle filter visibility
-document.querySelector('.filter-button').addEventListener('click', () => {
+// Mostra/Nascondi i filtri
+document.querySelector('.filter-icon').addEventListener('click', () => {
     const filters = document.querySelector('.filters');
     filters.style.display = filters.style.display === 'none' || filters.style.display === '' ? 'flex' : 'none';
 });
 
 document.querySelector('.search-button').addEventListener('click', filterRepositories);
 
-// Initialize repositories on page load
+// Inizializzazione al caricamento della pagina
 fetchRepositories();
