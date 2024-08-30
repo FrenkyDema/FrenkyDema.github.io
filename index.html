@@ -7,6 +7,7 @@
     <meta name="author" content="Frenky Dema">
     <meta name="google-site-verification" content="SDM_hhwQSY1XMlm4BxjY4vTTj0JuCrznLgCo4_a5YXI" />
     <title>Frenky Dema - Profile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -103,6 +104,32 @@
         .repository-footer .language--color {
             background-color: #e74c3c; /* default language color */
         }
+        .update-card {
+            background: #34495e;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .event-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9em;
+        }
+
+        .event-date {
+            font-size: 0.8em;
+            color: #bdc3c7;
+        }
+
+        .event-description {
+            color: #ecf0f1;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+
         /* Media Queries for Responsive Design */
         @media (max-width: 768px) {
             .container {
@@ -116,7 +143,7 @@
                 padding: 10px; /* Uniformità del padding */
             }
         }
-        
+
         @media (max-width: 480px) {
             .container {
                 padding: 5px; /* Ulteriore riduzione del padding per piccoli dispositivi */
@@ -174,19 +201,23 @@
     <script>
         // Fetch latest updates from GitHub API
         fetch('https://api.github.com/users/FrenkyDema/events')
-            .then(response => response.json())
-            .then(data => {
-                const updates = document.getElementById('latest-updates');
-                updates.innerHTML = data.slice(0, 5).map(event => {
-                    return `
-                        <div class="card">
-                            <strong>${event.repo.name}</strong>: ${event.type} on ${new Date(event.created_at).toLocaleDateString()}
-                        </div>`;
-                }).join('');
-            })
-            .catch(error => {
-                document.getElementById('latest-updates').innerHTML = '<p>Could not load updates.</p>';
-            });
+        .then(response => response.json())
+        .then(data => {
+            const updates = document.getElementById('latest-updates');
+            updates.innerHTML = data.slice(0, 5).map(event => {
+                return `
+                    <div class="update-card">
+                        <div class="event-info">
+                            <strong>${event.repo.name}</strong> - ${event.type.replace('Event', '')}
+                            <span class="event-date">${new Date(event.created_at).toLocaleDateString()}</span>
+                        </div>
+                        <p class="event-description">${event.payload.commits ? event.payload.commits[0].message : 'No detailed description available.'}</p>
+                    </div>`;
+            }).join('');
+        })
+        .catch(error => {
+            document.getElementById('latest-updates').innerHTML = '<p>Could not load updates.</p>';
+        });
 
         // Fetch repositories and display them in reverse order
         fetch('https://api.github.com/users/FrenkyDema/repos')
@@ -198,7 +229,7 @@
                     return `
                         <div class="repository-card">
                             <div class="repository-header">
-                                <h3>${repo.name}</h3>
+                                <h3>${repo.name} ${repo.fork ? '<i class="fas fa-code-branch" title="Forked Repository"></i>' : ''}</h3>
                                 <a href="${repo.html_url}" target="_blank">View</a>
                             </div>
                             <div class="repository-description">
