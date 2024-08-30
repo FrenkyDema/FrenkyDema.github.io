@@ -51,15 +51,15 @@
             padding: 0;
             margin: 0;
             position: relative;
-            padding-left: 40px;
-            /* Adjusted to bring the content closer to the line */
+            padding-left: 30px;
+            /* Adjust the padding to align content properly */
         }
 
         .commit-list::before {
             content: '';
             position: absolute;
-            left: 20px;
-            /* Adjusted to align the line with the points */
+            left: 12px;
+            /* Adjust this to move the vertical line closer to the point */
             top: 0;
             bottom: 0;
             width: 2px;
@@ -77,8 +77,8 @@
         .commit-item::before {
             content: '';
             position: absolute;
-            left: 15px;
-            /* Aligned the point with the line */
+            left: 8px;
+            /* Adjusted to perfectly align the point on the line */
             top: 50%;
             transform: translateY(-50%);
             width: 12px;
@@ -91,14 +91,13 @@
 
         .commit-item:hover::before {
             transform: translateY(-50%) scale(1.3);
-            /* Hover effect to enlarge the point */
             background-color: #3498db;
         }
 
         .commit-item::after {
             content: attr(data-tooltip);
             position: absolute;
-            left: 35px;
+            left: 30px;
             /* Positioned tooltip to the right of the point */
             top: 50%;
             transform: translateY(-50%);
@@ -118,7 +117,6 @@
         .commit-item:hover::after {
             opacity: 1;
             pointer-events: auto;
-            /* Tooltip shows only when hovering on the point */
         }
 
         .commit-header {
