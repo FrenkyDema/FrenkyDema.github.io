@@ -1,25 +1,42 @@
-<h2>My Repositories</h2>
-<div class="filter-container">
-    <div class="filter-icon" title="Toggle Filters">
-        <i class="fas fa-filter"></i>
-    </div>
-    <div class="filters">
-        <select id="languageFilter">
-            <option value="all">All Languages</option>
-            <option value="JavaScript">JavaScript</option>
-            <option value="Python">Python</option>
-            <option value="Dart">Dart</option>
-            <!-- Add more languages if necessary -->
-        </select>
-        <select id="starsFilter">
-            <option value="all">All Stars</option>
-            <option value="1">1+ Stars</option>
-            <option value="5">5+ Stars</option>
-            <option value="10">10+ Stars</option>
-        </select>
-        <button class="search-button">Search</button>
-    </div>
-</div>
-<div id="repositories" class="card-list">
-    <p>Loading repositories...</p>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Fetch Repositories</title>
+</head>
+<body>
+
+    <h2>Testing Repository Fetch</h2>
+
+    <script>
+        // Basic function to fetch repositories and log them to the console
+        function testFetchRepositories() {
+            console.log('Starting fetch for repositories...');
+            fetch('https://api.github.com/users/FrenkyDema/repos')
+                .then(response => {
+                    console.log('Fetch response received:', response);
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok. Status: ' + response.status);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Repositories fetched successfully:', data);
+                    if (data && data.length > 0) {
+                        console.log('Repository data:', data);
+                    } else {
+                        console.log('No repositories found.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching repositories:', error);
+                });
+        }
+
+        // Call the test function
+        testFetchRepositories();
+    </script>
+
+</body>
+</html>
