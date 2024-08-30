@@ -37,6 +37,9 @@ function displayRepositories(repos) {
     }).join('');
 }
 
+document.getElementById('languageFilter').addEventListener('change', filterRepositories);
+document.getElementById('starsFilter').addEventListener('change', filterRepositories);
+
 function filterRepositories() {
     const languageFilter = document.getElementById('languageFilter').value;
     const starsFilter = parseInt(document.getElementById('starsFilter').value, 10);
@@ -51,9 +54,6 @@ function filterRepositories() {
 
     displayRepositories(filteredRepos);
 }
-
-document.getElementById('languageFilter').addEventListener('change', filterRepositories);
-document.getElementById('starsFilter').addEventListener('change', filterRepositories);
 
 // Initialize repositories on page load
 fetchRepositories();
