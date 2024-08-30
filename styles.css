@@ -9,15 +9,18 @@ body {
     justify-content: center;
     align-items: flex-start;
     min-height: 100vh;
-    overflow-x: hidden; /* Prevent horizontal scroll */
+    overflow-x: hidden;
+    /* Prevent horizontal scroll */
 }
 
 /* Container styles */
 .container {
     display: grid;
-    grid-template-columns: 1fr 2fr 1fr; /* Make center column 2 times wider */
+    grid-template-columns: 1fr 2fr 1fr;
+    /* Make center column 2 times wider */
     gap: 20px;
-    width: 100%; /* Full width */
+    width: 100%;
+    /* Full width */
     padding: 20px;
     box-sizing: border-box;
 }
@@ -70,6 +73,20 @@ body {
     transform: scale(1.05);
 }
 
+.load-more-btn:active {
+    background-color: #148f77;
+    /* Darker shade on active */
+    transform: scale(0.98);
+    /* Slightly scale down on click */
+}
+
+.load-more-btn:focus {
+    outline: none;
+    /* Remove default focus outline */
+    box-shadow: 0 0 0 3px rgba(26, 188, 156, 0.5);
+    /* Custom focus outline */
+}
+
 /* Filter Container */
 .filter-container {
     display: flex;
@@ -98,7 +115,8 @@ body {
 }
 
 .filters {
-    display: none; /* Hidden by default */
+    display: none;
+    /* Hidden by default */
     flex-direction: column;
     position: absolute;
     top: 50px;
@@ -192,14 +210,16 @@ body {
     position: relative;
     padding: 20px 0;
     margin-top: 20px;
-    border-left: 2px solid #1abc9c; /* Vertical line color */
+    border-left: 2px solid #1abc9c;
+    /* Vertical line color */
 }
 
 /* Each timeline item */
 .timeline-item {
     position: relative;
     margin-bottom: 20px;
-    padding-left: 40px; /* Adjusted for more space between the line and the content */
+    padding-left: 40px;
+    /* Adjusted for more space between the line and the content */
     transition: transform 0.3s ease, background-color 0.3s ease;
     opacity: 0;
     transform: translateY(20px);
@@ -215,7 +235,8 @@ body {
 /* Timeline icon */
 .timeline-icon {
     position: absolute;
-    left: -12px; /* Center the icon on the vertical line */
+    left: -12px;
+    /* Center the icon on the vertical line */
     top: 0;
     width: 24px;
     height: 24px;
@@ -226,7 +247,8 @@ body {
     justify-content: center;
     color: #ecf0f1;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    font-size: 12px; /* Adjust icon size */
+    font-size: 12px;
+    /* Adjust icon size */
 }
 
 /* Timeline content */
@@ -266,6 +288,7 @@ body {
         opacity: 0;
         transform: translateY(20px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -275,9 +298,11 @@ body {
 /* Responsive styles */
 @media (max-width: 768px) {
     .container {
-        grid-template-columns: 1fr; /* Stack columns on smaller screens */
+        grid-template-columns: 1fr;
+        /* Stack columns on smaller screens */
         padding: 10px;
     }
+
     .card {
         padding: 10px;
     }
@@ -287,9 +312,11 @@ body {
     .container {
         padding: 5px;
     }
+
     .card {
         padding: 8px;
     }
+
     .card h2 {
         font-size: 1.2em;
     }
