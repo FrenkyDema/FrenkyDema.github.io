@@ -74,7 +74,7 @@ function loadMoreRepositories() {
     }
 }
 
-document.getElementById('load-more-btn').addEventListener('click', loadMoreUpdates);
+document.getElementById('load-more-btn').addEventListener('click', loadMoreRepositories);
 
 // Initialize repositories on page load
 fetchRepositories();
