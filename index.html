@@ -11,31 +11,39 @@
 <body>
     <div class="container">
         <!-- Latest Updates Section -->
-        <div class="card">
-            <h2>Latest Updates</h2>
-            <div id="update-list" class="update-list"></div>
-            <div id="load-more-btn" class="load-more-btn">Load More</div>
+        <div class="card" id="latest-updates-section">
+            <!-- Content will be included here -->
         </div>
 
         <!-- My Repositories Section -->
-        <div class="card">
-            <h2>My Repositories</h2>
-            <div id="repositories" class="card-list">
-                <p>Loading repositories...</p>
-            </div>
+        <div class="card" id="repositories-section">
+            <!-- Content will be included here -->
         </div>
 
         <!-- Statistics Section -->
-        <div class="card">
-            <h2>Statistics</h2>
-            <div id="stats">
-                <canvas id="languageChart" width="400" height="200"></canvas>
-                <canvas id="starsChart" width="400" height="200"></canvas>
-            </div>
+        <div class="card" id="statistics-section">
+            <!-- Content will be included here -->
         </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="scripts.js"></script>
+    <script>
+        // Load the sections via JavaScript
+        function loadSection(sectionId, url, scriptUrl) {
+            fetch(url)
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById(sectionId).innerHTML = data;
+                    const script = document.createElement('script');
+                    script.src = scriptUrl;
+                    document.body.appendChild(script);
+                });
+        }
+
+        // Load the sections and their respective scripts
+        loadSection('latest-updates-section', 'latest-updates.html', 'latest-updates.js');
+        loadSection('repositories-section', 'repositories.html', 'repositories.js');
+        loadSection('statistics-section', 'statistics.html', 'statistics.js');
+    </script>
 </body>
 </html>
