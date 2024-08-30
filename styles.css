@@ -1,0 +1,188 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #2c3e50;
+    color: #ecf0f1;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    gap: 20px;
+    max-width: 1200px;
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.card {
+    background: #34495e;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+    box-sizing: border-box;
+}
+
+.card h2 {
+    color: #1abc9c;
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+.update-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.update-card {
+    background: #2c3e50;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.5s forwards;
+}
+
+.update-card h3 {
+    margin: 0 0 5px;
+    font-size: 1.2em;
+    color: #1abc9c;
+}
+
+.update-card p {
+    margin: 0 0 10px;
+    font-size: 0.9em;
+    color: #ecf0f1;
+}
+
+.update-card .meta {
+    font-size: 0.8em;
+    color: #bdc3c7;
+}
+
+.load-more-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 10px;
+    background-color: #1abc9c;
+    color: #ecf0f1;
+    text-align: center;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.load-more-btn:hover {
+    background-color: #16a085;
+}
+
+.repository-card {
+    display: flex;
+    flex-direction: column;
+    background-color: #2c3e50;
+    border: 1px solid #444;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 15px;
+}
+
+.repository-card:hover {
+    background-color: #34495e;
+    border-color: #1abc9c;
+}
+
+.repository-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.repository-header h3 {
+    margin: 0;
+    font-size: 1.2em;
+    color: #1abc9c;
+}
+
+.repository-header a {
+    text-decoration: none;
+    font-size: 0.9em;
+    color: #1abc9c;
+    background-color: #1abc9c1a;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.repository-header a:hover {
+    background-color: #1abc9c33;
+}
+
+.repository-description {
+    margin-bottom: 10px;
+    font-size: 1em;
+    color: #ecf0f1;
+}
+
+.repository-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9em;
+    color: #bdc3c7;
+}
+
+.repository-footer .language {
+    display: flex;
+    align-items: center;
+}
+
+.repository-footer .language span {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 5px;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        grid-template-columns: 1fr;
+        padding: 10px;
+    }
+    .card {
+        padding: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 5px;
+    }
+    .card {
+        padding: 8px;
+    }
+    .card h2 {
+        font-size: 1.2em;
+    }
+}
