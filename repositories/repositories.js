@@ -1,3 +1,7 @@
+// repositories.js
+
+console.log('Hello from repositories.js');
+
 document.addEventListener('DOMContentLoaded', function() {
     console.log('repositories.js script is running.');
 
