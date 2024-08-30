@@ -24,7 +24,7 @@ body {
     background: #34495e;
     padding: 20px;
     border-radius: 12px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
     box-sizing: border-box;
 }
@@ -154,11 +154,77 @@ body {
     margin-right: 5px;
 }
 
+/* Timeline container */
+.timeline {
+    position: relative;
+    padding: 20px 0;
+    margin-top: 20px;
+    border-left: 2px solid #444;
+    /* Vertical line */
+}
+
+/* Each timeline item */
+.timeline-item {
+    position: relative;
+    margin-bottom: 20px;
+    padding-left: 30px;
+    /* Align content with icons */
+}
+
+/* Timeline icon */
+.timeline-icon {
+    position: absolute;
+    left: -15px;
+    /* Position to overlap with the line */
+    top: 0;
+    width: 20px;
+    height: 20px;
+    background-color: #1abc9c;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ecf0f1;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Timeline content */
+.timeline-content {
+    background-color: #2c3e50;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.5s forwards;
+}
+
+/* Timeline item title */
+.timeline-content h3 {
+    margin: 0;
+    font-size: 1.2em;
+    color: #1abc9c;
+}
+
+/* Timeline item description */
+.timeline-content p {
+    margin: 5px 0;
+    font-size: 0.9em;
+    color: #ecf0f1;
+}
+
+/* Timeline item date */
+.timeline-date {
+    font-size: 0.8em;
+    color: #bdc3c7;
+}
+
 @keyframes fadeInUp {
     from {
         opacity: 0;
         transform: translateY(20px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -170,6 +236,7 @@ body {
         grid-template-columns: 1fr;
         padding: 10px;
     }
+
     .card {
         padding: 10px;
     }
@@ -179,9 +246,11 @@ body {
     .container {
         padding: 5px;
     }
+
     .card {
         padding: 8px;
     }
+
     .card h2 {
         font-size: 1.2em;
     }

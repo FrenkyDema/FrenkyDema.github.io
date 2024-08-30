@@ -10,24 +10,29 @@ function fetchUpdates() {
         loadMoreUpdates(); // Load the first set of updates
     })
     .catch(error => {
-        document.getElementById('update-list').innerHTML = '<p>Could not load updates.</p>';
+        document.getElementById('timeline').innerHTML = '<p>Could not load updates.</p>';
     });
 }
 
 function loadMoreUpdates() {
-    const updatesContainer = document.getElementById('update-list');
+    const timelineContainer = document.getElementById('timeline');
     const nextIndex = updateIndex + 3; // Load 3 updates at a time
     const updatesToLoad = updateData.slice(updateIndex, nextIndex);
 
     updatesToLoad.forEach(event => {
-        const updateCard = document.createElement('div');
-        updateCard.classList.add('update-card');
-        updateCard.innerHTML = `
-            <h3>${event.repo.name}</h3>
-            <p>${event.type.replace('Event', '')} - ${event.payload.commits ? event.payload.commits[0].message : 'No detailed description available.'}</p>
-            <div class="meta">${new Date(event.created_at).toLocaleDateString()} at ${new Date(event.created_at).toLocaleTimeString()}</div>
+        const timelineItem = document.createElement('div');
+        timelineItem.classList.add('timeline-item');
+        timelineItem.innerHTML = `
+            <div class="timeline-icon">
+                <i class="fas fa-code-branch"></i>
+            </div>
+            <div class="timeline-content">
+                <h3>${event.repo.name}</h3>
+                <p>${event.type.replace('Event', '')} - ${event.payload.commits ? event.payload.commits[0].message : 'No detailed description available.'}</p>
+                <span class="timeline-date">${new Date(event.created_at).toLocaleDateString()} at ${new Date(event.created_at).toLocaleTimeString()}</span>
+            </div>
         `;
-        updatesContainer.appendChild(updateCard);
+        timelineContainer.appendChild(timelineItem);
     });
 
     updateIndex = nextIndex;
