@@ -214,12 +214,32 @@ body {
     margin-bottom: 10px;
     transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1; /* Ensure timeline item is beneath the icon */
 }
 
 .timeline-item:hover {
     background-color: #1abc9c; /* Slightly brighter on hover */
     transform: translateY(-5px); /* Lift effect */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Enhanced shadow */
+    z-index: 2; /* Bring the card to the front on hover */
+}
+
+/* Timeline icon */
+.timeline-icon {
+    position: absolute;
+    left: -12px; /* Center the icon on the vertical line */
+    top: 15px;
+    width: 24px;
+    height: 24px;
+    background-color: #1abc9c;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ecf0f1;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-size: 12px; /* Adjust icon size */
+    z-index: 3; /* Ensure the icon remains on top */
 }
 
 .timeline-item h3,
@@ -249,23 +269,6 @@ body {
 
 .timeline-item:hover h3 {
     color: #ecf0f1; /* Invert text color on hover */
-}
-
-/* Timeline icon */
-.timeline-icon {
-    position: absolute;
-    left: -12px; /* Center the icon on the vertical line */
-    top: 15px;
-    width: 24px;
-    height: 24px;
-    background-color: #1abc9c;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #ecf0f1;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    font-size: 12px; /* Adjust icon size */
 }
 
 /* Timeline content */
