@@ -13,6 +13,7 @@ function fetchRepositories() {
         })
         .then(data => {
             repositoriesData = data;
+            document.getElementById('repositories').innerHTML = ''; // Clear the loading label
             loadMoreRepositories(); // Load the first set of repositories
         })
         .catch(error => {
