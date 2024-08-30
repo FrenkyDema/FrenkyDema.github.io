@@ -51,7 +51,7 @@
         .commit-list::before {
             content: '';
             position: absolute;
-            left: 36px; /* Centra meglio la linea verticale */
+            left: 30px; /* Centra meglio la linea verticale */
             top: 0;
             bottom: 0;
             width: 2px;
@@ -67,13 +67,18 @@
         .commit-item::before {
             content: '';
             position: absolute;
-            left: 26px; /* Centra meglio i puntini rispetto alla linea */
-            top: 5px;
-            width: 10px;
-            height: 10px;
+            left: 21px; /* Posiziona correttamente il puntino rispetto alla linea */
+            top: 7px; /* Aggiusta l'altezza del puntino */
+            width: 12px; /* Aumenta leggermente la dimensione del puntino */
+            height: 12px;
             background-color: #1abc9c;
             border-radius: 50%;
-            border: 2px solid #34495e; /* Cambia il colore del bordo per una migliore separazione */
+            border: 2px solid #34495e;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+        .commit-item:hover::before {
+            transform: scale(1.3); /* Ingrandisce leggermente il puntino al passaggio del mouse */
+            background-color: #3498db; /* Cambia colore al passaggio del mouse */
         }
         .commit-header {
             font-weight: bold;
