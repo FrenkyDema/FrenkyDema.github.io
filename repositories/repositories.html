@@ -25,6 +25,7 @@
                     console.log('Repositories fetched successfully:', data);
                     if (data && data.length > 0) {
                         console.log('Repository data:', data);
+                        displayRepositories(data);
                     } else {
                         console.log('No repositories found.');
                     }
@@ -32,6 +33,15 @@
                 .catch(error => {
                     console.error('Error fetching repositories:', error);
                 });
+        }
+
+        // Function to display repositories in the console
+        function displayRepositories(repos) {
+            console.log('Displaying repositories:', repos);
+
+            repos.forEach(repo => {
+                console.log('Repository:', repo.name, 'Description:', repo.description);
+            });
         }
 
         // Call the test function
