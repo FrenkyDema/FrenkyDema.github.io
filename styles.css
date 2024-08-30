@@ -237,9 +237,9 @@ body {
     align-items: center;
     justify-content: center;
     color: #ecf0f1;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     font-size: 12px; /* Adjust icon size */
     z-index: 3; /* Ensure the icon remains on top */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Add shadow to the icon */
 }
 
 .timeline-item h3,
