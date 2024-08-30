@@ -1,51 +1,35 @@
-console.log('Hello from repositories.js');
+let repositoriesData = []; // Array to hold fetched repositories
+let repoIndex = 0; // Index to track how many repositories are loaded at a time
 
-// Directly calling the fetchRepositories function
-fetchRepositories();
-
+// Fetch repositories from GitHub API
 function fetchRepositories() {
     console.log('Starting fetch for repositories...');
-    
     fetch('https://api.github.com/users/FrenkyDema/repos')
         .then(response => {
-            console.log('Fetch response received:', response);
             if (!response.ok) {
                 throw new Error('Network response was not ok. Status: ' + response.status);
             }
             return response.json();
         })
         .then(data => {
-            console.log('Repositories fetched successfully:', data);
-            if (data && data.length > 0) {
-                console.log('Data retrieved from API:', data);
-                displayRepositories(data);
-            } else {
-                console.log('No repositories found in the data.');
-                document.getElementById('repositories').innerHTML = '<p>No repositories found.</p>';
-            }
+            repositoriesData = data;
+            loadMoreRepositories(); // Load the first set of repositories
         })
         .catch(error => {
-            console.error('Error fetching repositories:', error);
             document.getElementById('repositories').innerHTML = '<p>Could not load repositories. Please try again later.</p>';
+            console.error('Error fetching repositories:', error);
         });
 }
 
-function displayRepositories(repos) {
+function loadMoreRepositories() {
     const reposContainer = document.getElementById('repositories');
-    console.log('Checking if #repositories element is found:', reposContainer);
+    const nextIndex = repoIndex + 3; // Load 3 repositories at a time
+    const reposToLoad = repositoriesData.slice(repoIndex, nextIndex);
 
-    if (!reposContainer) {
-        console.error('Element with ID "repositories" not found.');
-        return;
-    }
-
-    console.log('Updating repositories section with fetched data...');
-    reposContainer.innerHTML = ''; // Clear previous content
-
-    repos.forEach(repo => {
-        console.log('Processing repository:', repo.name);
+    reposToLoad.forEach(repo => {
         const repoElement = document.createElement('div');
-        repoElement.className = 'repository-card';
+        repoElement.classList.add('repository-card');
+
         repoElement.innerHTML = `
             <div class="repository-header">
                 <h3>${repo.name}</h3>
@@ -63,9 +47,23 @@ function displayRepositories(repos) {
                 </div>
             </div>
         `;
+
+        // Append the item to the repository container
         reposContainer.appendChild(repoElement);
-        console.log(`Added repository to DOM: ${repo.name}`);
     });
 
-    console.log('Repositories displayed successfully.');
+    repoIndex = nextIndex;
+
+    // Hide load more button if all repositories are loaded
+    if (repoIndex >= repositoriesData.length) {
+        document.getElementById('load-more-repos-btn').style.display = 'none';
+    } else {
+        // Scroll smoothly to the new repositories
+        reposContainer.lastElementChild.scrollIntoView({ behavior: 'smooth' });
+    }
 }
+
+document.getElementById('load-more-repos-btn').addEventListener('click', loadMoreRepositories);
+
+// Initialize repositories on page load
+fetchRepositories();
