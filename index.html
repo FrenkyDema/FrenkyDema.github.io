@@ -3,265 +3,186 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Frenky Dema's personal GitHub profile page">
-    <meta name="author" content="Frenky Dema">
-    <meta name="google-site-verification" content="SDM_hhwQSY1XMlm4BxjY4vTTj0JuCrznLgCo4_a5YXI" />
-    <title>Frenky Dema - Profile</title>
+    <title>Nicolas Garbari - LinkedIn Profile</title>
     <style>
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #2c3e50;
-            color: #ecf0f1;
+            font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            min-height: 100vh;
-        }
-        .container {
-            display: grid;
-            grid-template-columns: 1fr 2fr 1fr;
-            gap: 20px;
-            max-width: 1200px;
-            width: 100%;
-            padding: 20px;
             box-sizing: border-box;
-        }
-        .card {
-            background: #34495e;
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
-        }
-        .card h2 {
-            color: #1abc9c;
-            font-size: 1.5em;
-            margin-bottom: 10px;
-        }
-        .repository-card {
-            display: flex;
-            flex-direction: column;
-            background-color: #2c3e50;
-            border: 1px solid #444;
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            margin-bottom: 15px;
-        }
-        .repository-card:hover {
-            background-color: #34495e;
-            border-color: #1abc9c;
-        }
-        .repository-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-        .repository-header h3 {
-            margin: 0;
-            font-size: 1.2em;
-            color: #1abc9c;
-        }
-        .repository-header a {
-            text-decoration: none;
-            font-size: 0.9em;
-            color: #1abc9c;
-            background-color: #1abc9c1a;
-            padding: 5px 10px;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-        }
-        .repository-header a:hover {
-            background-color: #1abc9c33;
-        }
-        .repository-description {
-            margin-bottom: 10px;
-            font-size: 1em;
-            color: #ecf0f1;
-        }
-        .repository-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.9em;
-            color: #bdc3c7;
-        }
-        .repository-footer .language {
-            display: flex;
-            align-items: center;
-        }
-        .repository-footer .language span {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            display: inline-block;
-            margin-right: 5px;
-        }
-        .repository-footer .language--color {
-            background-color: #e74c3c; /* default language color */
-        }
-        /* Media Queries for Responsive Design */
-        @media (max-width: 768px) {
-            .container {
-                grid-template-columns: 1fr;
-            }
-            .repository-card {
-                flex-direction: column;
-                align-items: flex-start;
-            }
+            background-color: #f4f4f4;
+            color: #333;
         }
 
-        @media (max-width: 480px) {
-            .card {
-                padding: 15px;
+        .navbar {
+            display: flex;
+            justify-content: space-around;
+            background-color: #333;
+            padding: 1rem;
+        }
+
+        .navbar li {
+            list-style: none;
+        }
+
+        .navbar a {
+            color: #fff;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            transition: background-color 0.3s;
+            border-radius: 5px;
+        }
+
+        .navbar a:hover {
+            background-color: #555;
+        }
+
+        .section {
+            padding: 2rem;
+            margin: 2rem auto;
+            max-width: 1200px;
+        }
+
+        .card {
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .profile-picture {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin-bottom: 1rem;
+        }
+
+        h1, h2 {
+            color: #333;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1rem;
+            background-color: #333;
+            color: #fff;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                align-items: center;
             }
-            .card h2 {
-                font-size: 1.3em;
+
+            .navbar a {
+                padding: 0.5rem;
             }
-            .repository-card h3 {
-                font-size: 1.1em;
+
+            .section {
+                padding: 1rem;
+                margin: 1rem auto;
             }
-            .repository-card p {
-                font-size: 0.8em;
+
+            .profile-picture {
+                width: 100px;
+                height: 100px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Left Column -->
-        <div class="card">
-            <h2>Latest Updates</h2>
-            <div id="latest-updates" class="card-list">
-                <p>Loading latest updates...</p>
-            </div>
-        </div>
+    <header>
+        <nav>
+            <ul class="navbar">
+                <li><a href="#profile">Profile</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
 
-        <!-- Center Column -->
+    <section id="profile" class="section">
         <div class="card">
-            <h2>About Me & Projects</h2>
-            <p>I'm Frenky Dema, a passionate mobile app developer with a specialization in Flutter. I enjoy creating efficient and user-friendly applications that provide great user experiences.</p>
-            <h2>My Repositories</h2>
-            <div id="repositories" class="card-list">
-                <p>Loading repositories...</p>
-            </div>
+            <img src="profile_picture.jpg" alt="Profile Picture" class="profile-picture">
+            <h1>Nicolas Garbari</h1>
+            <p>Software Engineer | AI Enthusiast | Web Developer</p>
+            <p>Location: Trento, Italy</p>
+            <a href="https://www.linkedin.com/in/nicolas-garbari-96855b223/" target="_blank">View LinkedIn</a>
         </div>
+    </section>
 
-        <!-- Right Column -->
+    <section id="experience" class="section">
         <div class="card">
-            <h2>Statistics</h2>
-            <div id="stats">
-                <canvas id="languageChart" width="400" height="200"></canvas>
-            </div>
+            <h2>Experience</h2>
+            <ul>
+                <li>Software Engineer at Company X</li>
+                <li>Web Developer at Company Y</li>
+                <li>AI Researcher at University Z</li>
+            </ul>
         </div>
-    </div>
+    </section>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <section id="skills" class="section">
+        <div class="card">
+            <h2>Skills</h2>
+            <ul>
+                <li>JavaScript, HTML, CSS</li>
+                <li>Python, Machine Learning</li>
+                <li>React, Node.js</li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="projects" class="section">
+        <div class="card">
+            <h2>Projects</h2>
+            <ul>
+                <li>Project A - Description</li>
+                <li>Project B - Description</li>
+                <li>Project C - Description</li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="contact" class="section">
+        <div class="card">
+            <h2>Contact</h2>
+            <p>Email: nicolas@example.com</p>
+            <p>Phone: +39 123 456 7890</p>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2024 Nicolas Garbari. All Rights Reserved.</p>
+    </footer>
+
     <script>
-        // Fetch latest updates from GitHub API
-        fetch('https://api.github.com/users/FrenkyDema/events')
-            .then(response => response.json())
-            .then(data => {
-                const updates = document.getElementById('latest-updates');
-                updates.innerHTML = data.slice(0, 5).map(event => {
-                    return `
-                        <div class="card">
-                            <strong>${event.repo.name}</strong>: ${event.type} on ${new Date(event.created_at).toLocaleDateString()}
-                        </div>`;
-                }).join('');
-            })
-            .catch(error => {
-                document.getElementById('latest-updates').innerHTML = '<p>Could not load updates.</p>';
-            });
+        document.addEventListener('DOMContentLoaded', function () {
+            const navbarLinks = document.querySelectorAll('.navbar a');
 
-        // Fetch repositories and display them in reverse order
-        fetch('https://api.github.com/users/FrenkyDema/repos')
-            .then(response => response.json())
-            .then(repos => {
-                const reposContainer = document.getElementById('repositories');
-                repos.sort((a, b) => new Date(b.created_at) - new Date(a.created_at)); // Sort by creation date
-                reposContainer.innerHTML = repos.map(repo => {
-                    return `
-                        <div class="repository-card">
-                            <div class="repository-header">
-                                <h3>${repo.name}</h3>
-                                <a href="${repo.html_url}" target="_blank">View</a>
-                            </div>
-                            <div class="repository-description">
-                                ${repo.description || 'No description available.'}
-                            </div>
-                            <div class="repository-footer">
-                                <div class="language">
-                                    <span class="language--color" style="background-color: ${getLanguageColor(repo.language)};"></span>
-                                    ${repo.language || 'Unknown'}
-                                </div>
-                                <div class="stars">
-                                    &#9733; ${repo.stargazers_count}
-                                </div>
-                            </div>
-                        </div>`;
-                }).join('');
-            })
-            .catch(error => {
-                document.getElementById('repositories').innerHTML = '<p>Could not load repositories.</p>';
-            });
+            navbarLinks.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetSection = document.getElementById(targetId);
 
-        // Fetch statistics using GitHub API and create chart
-        fetch('https://api.github.com/users/FrenkyDema/repos')
-            .then(response => response.json())
-            .then(repos => {
-                const languages = {};
-                repos.forEach(repo => {
-                    if (repo.language) {
-                        if (!languages[repo.language]) {
-                            languages[repo.language] = 0;
-                        }
-                        languages[repo.language]++;
-                    }
+                    window.scrollTo({
+                        top: targetSection.offsetTop,
+                        behavior: 'smooth'
+                    });
                 });
-
-                const ctx = document.getElementById('languageChart').getContext('2d');
-                new Chart(ctx, {
-                    type: 'pie',
-                    data: {
-                        labels: Object.keys(languages),
-                        datasets: [{
-                            data: Object.values(languages),
-                            backgroundColor: ['#1abc9c', '#3498db', '#9b59b6', '#e74c3c', '#f1c40f'],
-                            borderColor: '#2c3e50',
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        plugins: {
-                            legend: {
-                                position: 'bottom',
-                            },
-                        },
-                    }
-                });
-            })
-            .catch(error => {
-                document.getElementById('stats').innerHTML = '<p>Could not load statistics.</p>';
             });
-
-        function getLanguageColor(language) {
-            const colors = {
-                "JavaScript": "#f1e05a",
-                "Python": "#3572A5",
-                "Java": "#b07219",
-                "Python": "#3572A5",
-                "Java": "#b07219",
-                "HTML": "#e34c26",
-                "CSS": "#563d7c",
-                "C++": "#f34b7d",
-                // Add more language colors as needed
-            };
-            return colors[language] || '#e74c3c'; // Default color if language not found
-        }
+        });
     </script>
 </body>
 </html>
