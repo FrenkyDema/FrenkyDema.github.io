@@ -14,10 +14,9 @@ body {
 /* Container styles */
 .container {
     display: grid;
-    grid-template-columns: 2fr 1fr 2fr; /* Make center column 2 times wider */
+    grid-template-columns: 1fr 2fr 1fr; /* Make center column 2 times wider */
     gap: 20px;
-    max-width: 1200px;
-    width: 100%;
+    width: 100%; /* Full width */
     padding: 20px;
     box-sizing: border-box;
 }
@@ -270,7 +269,7 @@ body {
 /* Responsive styles */
 @media (max-width: 768px) {
     .container {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr; /* Stack columns on smaller screens */
         padding: 10px;
     }
     .card {
