@@ -75,7 +75,7 @@ body {
     background-color: #1abc9c;
     color: #ecf0f1;
     padding: 10px;
-    border-radius: 50%; /* Make the button square with rounded corners */
+    border-radius: 50%; /* Make the button round */
     cursor: pointer;
     text-align: center;
     border: none;
@@ -88,6 +88,8 @@ body {
     align-items: center;
     justify-content: center;
     transition: background-color 0.3s ease, transform 0.3s ease;
+    font-size: 1.2em;
+    line-height: 0;
 }
 
 .filter-button:hover {
