@@ -1,5 +1,3 @@
-// repositories.js
-
 console.log('Hello from repositories.js');
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -7,6 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function fetchRepositories() {
         console.log('Starting fetch for repositories...');
+        
         fetch('https://api.github.com/users/FrenkyDema/repos')
             .then(response => {
                 console.log('Fetch response received:', response);
@@ -33,6 +32,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function displayRepositories(repos) {
         const reposContainer = document.getElementById('repositories');
+        console.log('Checking if #repositories element is found:', reposContainer);
+
         if (!reposContainer) {
             console.error('Element with ID "repositories" not found.');
             return;
@@ -70,4 +71,5 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     fetchRepositories();
+    console.log('fetchRepositories function has been called.');
 });
