@@ -14,7 +14,7 @@ body {
 /* Container styles */
 .container {
     display: grid;
-    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-columns: 1fr 1.5fr 1fr; /* Center column is now 1.5 times wider */
     gap: 20px;
     max-width: 1200px;
     width: 100%;
