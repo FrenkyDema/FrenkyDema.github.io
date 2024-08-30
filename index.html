@@ -46,46 +46,53 @@
             padding: 0;
             margin: 0;
             position: relative;
-            padding-left: 40px;
+            padding-left: 50px; /* Sposta la lista più a destra */
         }
+        
         .commit-list::before {
             content: '';
             position: absolute;
-            left: 28px;
+            left: 36px; /* Centra meglio la linea verticale */
             top: 0;
             bottom: 0;
             width: 2px;
             background-color: #1abc9c;
         }
+        
         .commit-item {
             position: relative;
-            padding-left: 20px;
             margin-bottom: 20px;
         }
+        
         .commit-item::before {
             content: '';
             position: absolute;
-            left: 12px;
-            top: 0;
+            left: 26px;
+            top: 5px;
             width: 10px;
             height: 10px;
             background-color: #1abc9c;
             border-radius: 50%;
             border: 2px solid #34495e;
         }
+        
         .commit-header {
             font-weight: bold;
             margin-bottom: 5px;
+            font-size: 1em;
+            line-height: 1.2em;
         }
+        
         .commit-message {
             margin-bottom: 5px;
             font-size: 0.9em;
         }
+        
         .commit-meta {
             font-size: 0.8em;
             color: #bdc3c7;
+            line-height: 1.2em;
         }
-
         .repository-card {
             display: flex;
             flex-direction: column;
@@ -192,7 +199,11 @@
         <div class="card">
             <h2>Latest Updates</h2>
             <ul id="latest-updates" class="commit-list">
-                <li>Loading latest updates...</li>
+                <li class="commit-item">
+                    <div class="commit-header">RepoName</div>
+                    <div class="commit-message">Push - Update file</div>
+                    <div class="commit-meta">30/08/2024 at 09:36:59</div>
+                </li>
             </ul>
         </div>
 
