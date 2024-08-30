@@ -12,8 +12,14 @@ function fetchRepositories() {
             return response.json();
         })
         .then(data => {
+            console.log('Repositories fetched:', data);
             repositoriesData = data;
-            document.getElementById('repositories').innerHTML = ''; // Clear the loading label
+
+            // Clear the loading message
+            const reposContainer = document.getElementById('repositories');
+            reposContainer.innerHTML = ''; // Clear the loading label
+            console.log('Cleared loading message.');
+
             loadMoreRepositories(); // Load the first set of repositories
         })
         .catch(error => {
@@ -51,6 +57,7 @@ function loadMoreRepositories() {
 
         // Append the item to the repository container
         reposContainer.appendChild(repoElement);
+        console.log(`Added repository to DOM: ${repo.name}`);
     });
 
     repoIndex = nextIndex;
@@ -68,3 +75,4 @@ document.getElementById('load-more-repos-btn').addEventListener('click', loadMor
 
 // Initialize repositories on page load
 fetchRepositories();
+console.log('fetchRepositories function has been called.');
