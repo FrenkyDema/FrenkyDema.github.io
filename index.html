@@ -155,6 +155,8 @@
             <h2>Statistics</h2>
             <div id="stats">
                 <canvas id="languageChart" width="400" height="200"></canvas>
+                <!-- New canvas for the stars per language chart -->
+                <canvas id="starsChart" width="400" height="200"></canvas>
             </div>
         </div>
     </div>
@@ -209,17 +211,23 @@
                 document.getElementById('repositories').innerHTML = '<p>Could not load repositories.</p>';
             });
 
-        // Fetch statistics using GitHub API and create chart
+        // Fetch statistics using GitHub API and create chart for language usage
         fetch('https://api.github.com/users/FrenkyDema/repos')
             .then(response => response.json())
             .then(repos => {
                 const languages = {};
+                const starsPerLanguage = {};
                 repos.forEach(repo => {
-                    if (repo.language) {
-                        if (!languages[repo.language]) {
-                            languages[repo.language] = 0;
+                    const lang = repo.language || 'Unknown';
+                    if (lang) {
+                        if (!languages[lang]) {
+                            languages[lang] = 0;
                         }
-                        languages[repo.language]++;
+                        languages[lang]++;
+                        if (!starsPerLanguage[lang]) {
+                            starsPerLanguage[lang] = 0;
+                        }
+                        starsPerLanguage[lang] += repo.stargazers_count;
                     }
                 });
 
@@ -243,6 +251,34 @@
                         },
                     }
                 });
+
+                const ctxStars = document.getElementById('starsChart').getContext('2d');
+                new Chart(ctxStars, {
+                    type: 'bar',
+                    data: {
+                        labels: Object.keys(starsPerLanguage),
+                        datasets: [{
+                            label: 'Stars per Language',
+                            data: Object.values(starsPerLanguage),
+                            backgroundColor: ['#3498db', '#e74c3c', '#9b59b6', '#f1c40f', '#1abc9c'],
+                            borderColor: '#2c3e50',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        },
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                position: 'top'
+                            },
+                        },
+                    }
+                });
             })
             .catch(error => {
                 document.getElementById('stats').innerHTML = '<p>Could not load statistics.</p>';
@@ -253,14 +289,11 @@
                 "JavaScript": "#f1e05a",
                 "Python": "#3572A5",
                 "Java": "#b07219",
-                "Python": "#3572A5",
-                "Java": "#b07219",
                 "HTML": "#e34c26",
                 "CSS": "#563d7c",
                 "C++": "#f34b7d",
-                // Add more language colors as needed
             };
-            return colors[language] || '#e74c3c'; // Default color if language not found
+            return colors[language] || '#e74c3c';
         }
     </script>
 </body>
