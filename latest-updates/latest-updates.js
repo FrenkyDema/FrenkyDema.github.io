@@ -4,14 +4,14 @@ let updateIndex = 0; // Index to track how many updates are loaded at a time
 // Fetch latest updates from GitHub API
 function fetchUpdates() {
     fetch('https://api.github.com/users/FrenkyDema/events')
-    .then(response => response.json())
-    .then(data => {
-        updateData = data;
-        loadMoreUpdates(); // Load the first set of updates
-    })
-    .catch(error => {
-        document.getElementById('timeline').innerHTML = '<p>Could not load updates.</p>';
-    });
+        .then(response => response.json())
+        .then(data => {
+            updateData = data;
+            loadMoreUpdates(); // Load the first set of updates
+        })
+        .catch(error => {
+            document.getElementById('timeline').innerHTML = '<p>Could not load updates.</p>';
+        });
 }
 
 function loadMoreUpdates() {
@@ -22,9 +22,22 @@ function loadMoreUpdates() {
     updatesToLoad.forEach(event => {
         const timelineItem = document.createElement('div');
         timelineItem.classList.add('timeline-item');
+
+        // Choose an appropriate icon based on event type
+        let iconClass = 'fa-code-branch'; // Default icon
+        if (event.type.includes('Push')) {
+            iconClass = 'fa-upload';
+        } else if (event.type.includes('PullRequest')) {
+            iconClass = 'fa-code-pull-request';
+        } else if (event.type.includes('Issue')) {
+            iconClass = 'fa-exclamation-circle';
+        } else if (event.type.includes('Create')) {
+            iconClass = 'fa-plus-circle';
+        }
+
         timelineItem.innerHTML = `
             <div class="timeline-icon">
-                <i class="fas fa-code-branch"></i>
+                <i class="fas ${iconClass}"></i>
             </div>
             <div class="timeline-content">
                 <h3>${event.repo.name}</h3>
@@ -32,6 +45,8 @@ function loadMoreUpdates() {
                 <span class="timeline-date">${new Date(event.created_at).toLocaleDateString()} at ${new Date(event.created_at).toLocaleTimeString()}</span>
             </div>
         `;
+
+        // Append the item to the timeline
         timelineContainer.appendChild(timelineItem);
     });
 
