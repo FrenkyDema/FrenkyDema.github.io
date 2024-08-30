@@ -2,20 +2,23 @@ let repositories = [];
 
 // Ensure DOM is fully loaded before executing scripts
 document.addEventListener('DOMContentLoaded', () => {
-    // Funzione per prendere il colore della lingua
+    console.log('DOM fully loaded and parsed');
+
+    // Function to get language color
     function getLanguageColor(language) {
         const colors = {
             JavaScript: "#f1e05a",
             Python: "#3572A5",
             Dart: "#00B4AB",
             Java: "#b07219",
-            // Aggiungi altri colori se necessario
+            // Add other colors if needed
         };
         return colors[language] || '#e74c3c'; // Default color
     }
 
-    // Fetch delle repository da GitHub
+    // Fetch repositories from GitHub
     function fetchRepositories() {
+        console.log('Fetching repositories...');
         fetch('https://api.github.com/users/FrenkyDema/repos')
             .then(response => {
                 if (!response.ok) {
@@ -24,19 +27,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 return response.json();
             })
             .then(data => {
+                console.log('Repositories fetched:', data);
                 repositories = data;
                 displayRepositories(repositories);
             })
             .catch(error => {
-                console.error('Errore durante il fetch delle repository:', error);
+                console.error('Error fetching repositories:', error);
                 document.getElementById('repositories').innerHTML = '<p>Could not load repositories.</p>';
             });
     }
 
-    // Funzione per mostrare le repository
+    // Function to display repositories
     function displayRepositories(repos) {
         const reposContainer = document.getElementById('repositories');
-
         if (repos.length === 0) {
             reposContainer.innerHTML = '<p>No repositories found.</p>';
             return;
@@ -64,8 +67,9 @@ document.addEventListener('DOMContentLoaded', () => {
         `).join('');
     }
 
-    // Funzione per filtrare le repository
+    // Function to filter repositories
     function filterRepositories() {
+        console.log('Filtering repositories...');
         const languageFilter = document.getElementById('languageFilter').value;
         const starsFilter = parseInt(document.getElementById('starsFilter').value, 10);
         let filteredRepos = repositories;
@@ -80,23 +84,28 @@ document.addEventListener('DOMContentLoaded', () => {
         displayRepositories(filteredRepos);
     }
 
-    // Assicurati che gli elementi esistano prima di aggiungere gli event listener
+    // Ensure elements exist before adding event listeners
     const filterIcon = document.querySelector('.filter-icon');
     const searchButton = document.querySelector('.search-button');
 
     if (filterIcon) {
         filterIcon.addEventListener('click', () => {
+            console.log('Filter icon clicked');
             const filters = document.querySelector('.filters');
             if (filters) {
                 filters.style.display = filters.style.display === 'none' || filters.style.display === '' ? 'flex' : 'none';
             }
         });
+    } else {
+        console.error('Filter icon not found');
     }
 
     if (searchButton) {
         searchButton.addEventListener('click', filterRepositories);
+    } else {
+        console.error('Search button not found');
     }
 
-    // Inizializzazione al caricamento della pagina
+    // Initialize repository fetching on page load
     fetchRepositories();
 });
