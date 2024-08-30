@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('DOM fully loaded and parsed');
+    console.log('DOM fully loaded and parsed.');
 
     // Function to fetch repositories from GitHub
     function fetchRepositories() {
@@ -14,11 +14,10 @@ document.addEventListener('DOMContentLoaded', () => {
             })
             .then(data => {
                 console.log('Repositories fetched successfully:', data);
-
                 if (data && data.length > 0) {
                     displayRepositories(data);
                 } else {
-                    console.log('No repositories found');
+                    console.log('No repositories found.');
                     document.getElementById('repositories').innerHTML = '<p>No repositories found.</p>';
                 }
             })
@@ -31,8 +30,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Function to display repositories
     function displayRepositories(repos) {
-        const reposContainer = document.getElementById('repositories');
         console.log('Displaying repositories:', repos);
+        const reposContainer = document.getElementById('repositories');
+
+        if (!reposContainer) {
+            console.error('Element with ID "repositories" not found.');
+            return;
+        }
+
+        // Log before clearing and updating the content
+        console.log('Current content of repositories container:', reposContainer.innerHTML);
 
         reposContainer.innerHTML = ''; // Clear previous content
 
@@ -47,11 +54,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 <a href="${repo.html_url}" target="_blank">View Repository</a>
             `;
             reposContainer.appendChild(repoElement);
+            console.log(`Added repository: ${repo.name}`);
         });
 
-        console.log('Repositories displayed successfully.');
+        console.log('Updated repositories container content:', reposContainer.innerHTML);
     }
 
     // Start fetching repositories when the DOM is fully loaded
     fetchRepositories();
+    console.log('fetchRepositories function called.');
 });
