@@ -1,12 +1,10 @@
-document.addEventListener('DOMContentLoaded', () => {
-    console.log('DOM fully loaded and parsed.');
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('repositories.js script is running.');
 
-    // Function to fetch repositories from GitHub
     function fetchRepositories() {
         console.log('Starting fetch for repositories...');
         fetch('https://api.github.com/users/FrenkyDema/repos')
             .then(response => {
-                console.log('Fetch response received:', response);
                 if (!response.ok) {
                     throw new Error('Network response was not ok. Status: ' + response.status);
                 }
@@ -17,50 +15,45 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (data && data.length > 0) {
                     displayRepositories(data);
                 } else {
-                    console.log('No repositories found.');
                     document.getElementById('repositories').innerHTML = '<p>No repositories found.</p>';
                 }
             })
             .catch(error => {
                 console.error('Error fetching repositories:', error);
-                document.getElementById('repositories').innerHTML = `
-                    <p>Could not load repositories. Please try again later.</p>`;
+                document.getElementById('repositories').innerHTML = '<p>Could not load repositories. Please try again later.</p>';
             });
     }
 
-    // Function to display repositories
     function displayRepositories(repos) {
-        console.log('Displaying repositories:', repos);
         const reposContainer = document.getElementById('repositories');
-
-        if (!reposContainer) {
-            console.error('Element with ID "repositories" not found.');
-            return;
-        }
-
-        // Log before clearing and updating the content
-        console.log('Current content of repositories container:', reposContainer.innerHTML);
-
         reposContainer.innerHTML = ''; // Clear previous content
 
         repos.forEach(repo => {
             const repoElement = document.createElement('div');
-            repoElement.className = 'repository';
+            repoElement.className = 'repository-card';
             repoElement.innerHTML = `
-                <h3>${repo.name}</h3>
-                <p>${repo.description || 'No description available.'}</p>
-                <p>Language: ${repo.language || 'Unknown'}</p>
-                <p>Stars: ${repo.stargazers_count}</p>
-                <a href="${repo.html_url}" target="_blank">View Repository</a>
+                <div class="repository-header">
+                    <h3>${repo.name}</h3>
+                    <a href="${repo.html_url}" target="_blank">View</a>
+                </div>
+                <div class="repository-description">
+                    ${repo.description || 'No description available.'}
+                </div>
+                <div class="repository-footer">
+                    <div class="language">
+                        ${repo.language || 'Unknown'}
+                    </div>
+                    <div class="stars">
+                        &#9733; ${repo.stargazers_count}
+                    </div>
+                </div>
             `;
             reposContainer.appendChild(repoElement);
             console.log(`Added repository: ${repo.name}`);
         });
 
-        console.log('Updated repositories container content:', reposContainer.innerHTML);
+        console.log('Repositories displayed successfully.');
     }
 
-    // Start fetching repositories when the DOM is fully loaded
     fetchRepositories();
-    console.log('fetchRepositories function called.');
 });

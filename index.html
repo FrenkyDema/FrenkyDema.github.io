@@ -15,10 +15,10 @@
             <!-- Content will be included here -->
         </div>
 
-        <!-- My Repositories Section -->
         <div class="card" id="repositories-section">
             <!-- Content will be included here -->
-        </div>
+        </div><!-- My Repositories Section -->
+        
 
         <!-- Statistics Section -->
         <div class="card" id="statistics-section">
@@ -26,9 +26,8 @@
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        // Load the sections via JavaScript
+        // Function to load sections and scripts dynamically
         function loadSection(sectionId, url, scriptUrl) {
             fetch(url)
                 .then(response => response.text())
@@ -36,13 +35,17 @@
                     document.getElementById(sectionId).innerHTML = data;
                     const script = document.createElement('script');
                     script.src = scriptUrl;
+                    script.onload = function() {
+                        console.log(`${scriptUrl} has been loaded and executed.`);
+                    };
                     document.body.appendChild(script);
-                });
+                })
+                .catch(error => console.error('Error loading section:', error));
         }
 
         // Load the sections and their respective scripts
         loadSection('latest-updates-section', 'latest-updates/latest-updates.html', 'latest-updates/latest-updates.js');
-        loadSection('repositories-section'); //, 'repositories/repositories.html', 'repositories/repositories.js');
+        loadSection('repositories-section', 'repositories/repositories.html', 'repositories/repositories.js');
         loadSection('statistics-section', 'statistics/statistics.html', 'statistics/statistics.js');
     </script>
 </body>
