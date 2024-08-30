@@ -37,9 +37,6 @@ function displayRepositories(repos) {
     }).join('');
 }
 
-document.getElementById('languageFilter').addEventListener('change', filterRepositories);
-document.getElementById('starsFilter').addEventListener('change', filterRepositories);
-
 function filterRepositories() {
     const languageFilter = document.getElementById('languageFilter').value;
     const starsFilter = parseInt(document.getElementById('starsFilter').value, 10);
@@ -54,6 +51,14 @@ function filterRepositories() {
 
     displayRepositories(filteredRepos);
 }
+
+// Toggle filter visibility
+document.querySelector('.filter-button').addEventListener('click', () => {
+    const filters = document.querySelector('.filters');
+    filters.style.display = filters.style.display === 'none' || filters.style.display === '' ? 'flex' : 'none';
+});
+
+document.querySelector('.search-button').addEventListener('click', filterRepositories);
 
 // Initialize repositories on page load
 fetchRepositories();
