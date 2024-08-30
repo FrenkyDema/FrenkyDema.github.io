@@ -1,35 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Frenky Dema's personal GitHub profile page">
-    <meta name="author" content="Frenky Dema">
-    <title>Frenky Dema - Profile</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <div class="container">
-        <!-- Latest Updates Section -->
-        <div class="card" id="latest-updates-section">
-            <!-- Content will be included here -->
-        </div>
-
-        <!-- My Repositories Section -->
-        <div class="card" id="repositories-section">
-            <h2>My Repositories</h2>
-            <div id="repositories">
-                <p>Loading repositories...</p>
-            </div>
-        </div>
-
-        <!-- Statistics Section -->
-        <div class="card" id="statistics-section">
-            <!-- Content will be included here -->
-        </div>
+<h2>My Repositories</h2>
+<div class="filter-container">
+    <div class="filter-icon" title="Toggle Filters">
+        <i class="fas fa-filter"></i>
     </div>
-
-    <!-- Link to the JavaScript file -->
-    <script src="repositories.js"></script>
-</body>
-</html>
+    <div class="filters">
+        <select id="languageFilter">
+            <option value="all">All Languages</option>
+            <option value="JavaScript">JavaScript</option>
+            <option value="Python">Python</option>
+            <option value="Dart">Dart</option>
+            <!-- Add more languages if necessary -->
+        </select>
+        <select id="starsFilter">
+            <option value="all">All Stars</option>
+            <option value="1">1+ Stars</option>
+            <option value="5">5+ Stars</option>
+            <option value="10">10+ Stars</option>
+        </select>
+        <button class="search-button">Search</button>
+    </div>
+</div>
+<div id="repositories" class="card-list">
+    <p>Loading repositories...</p>
+</div>
