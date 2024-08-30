@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log('Starting fetch for repositories...');
         fetch('https://api.github.com/users/FrenkyDema/repos')
             .then(response => {
+                console.log('Fetch response received:', response);
                 if (!response.ok) {
                     throw new Error('Network response was not ok. Status: ' + response.status);
                 }
@@ -31,27 +32,26 @@ document.addEventListener('DOMContentLoaded', () => {
     // Function to display repositories
     function displayRepositories(repos) {
         const reposContainer = document.getElementById('repositories');
-        if (!reposContainer) {
-            console.error('Element with ID "repositories" not found.');
-            return;
-        }
+        console.log('Displaying repositories:', repos);
 
-        // Clear previous content
-        reposContainer.innerHTML = '';
+        reposContainer.innerHTML = ''; // Clear previous content
 
-        reposContainer.innerHTML = repos.map(repo => `
-            <div>
+        repos.forEach(repo => {
+            const repoElement = document.createElement('div');
+            repoElement.className = 'repository';
+            repoElement.innerHTML = `
                 <h3>${repo.name}</h3>
                 <p>${repo.description || 'No description available.'}</p>
                 <p>Language: ${repo.language || 'Unknown'}</p>
                 <p>Stars: ${repo.stargazers_count}</p>
                 <a href="${repo.html_url}" target="_blank">View Repository</a>
-            </div>
-        `).join('');
+            `;
+            reposContainer.appendChild(repoElement);
+        });
 
-        console.log('Updated repositories container innerHTML:', reposContainer.innerHTML);
+        console.log('Repositories displayed successfully.');
     }
 
-    // Call the function to fetch and display repositories
+    // Start fetching repositories when the DOM is fully loaded
     fetchRepositories();
 });
