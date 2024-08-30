@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,6 +20,7 @@
             align-items: flex-start;
             min-height: 100vh;
         }
+
         .container {
             display: grid;
             grid-template-columns: 1fr 2fr 1fr;
@@ -28,35 +30,42 @@
             padding: 20px;
             box-sizing: border-box;
         }
+
         .card {
             background: #34495e;
             padding: 20px;
             border-radius: 12px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             margin-bottom: 20px;
             box-sizing: border-box;
         }
+
         .card h2 {
             color: #1abc9c;
             font-size: 1.5em;
             margin-bottom: 10px;
         }
+
         .commit-list {
             list-style: none;
             padding: 0;
             margin: 0;
             position: relative;
-            padding-left: 50px; /* Sposta la lista più a destra */
+            padding-left: 40px;
+            /* Adjusted to bring the content closer to the line */
         }
+
         .commit-list::before {
             content: '';
             position: absolute;
-            left: 26px; /* Centra la linea verticale */
+            left: 20px;
+            /* Adjusted to align the line with the points */
             top: 0;
             bottom: 0;
             width: 2px;
             background-color: #1abc9c;
         }
+
         .commit-item {
             position: relative;
             margin-bottom: 20px;
@@ -64,11 +73,13 @@
             transform: translateY(20px);
             animation: slideIn 0.5s forwards;
         }
+
         .commit-item::before {
             content: '';
             position: absolute;
-            left: 20px; /* Centra meglio il puntino rispetto alla linea */
-            top: 50%; /* Posiziona verticalmente il puntino */
+            left: 15px;
+            /* Aligned the point with the line */
+            top: 50%;
             transform: translateY(-50%);
             width: 12px;
             height: 12px;
@@ -77,14 +88,18 @@
             border: 2px solid #34495e;
             transition: transform 0.3s ease, background-color 0.3s ease;
         }
+
         .commit-item:hover::before {
-            transform: translateY(-50%) scale(1.3); /* Ingrandisce il puntino al passaggio del mouse */
-            background-color: #3498db; /* Cambia colore al passaggio del mouse */
+            transform: translateY(-50%) scale(1.3);
+            /* Hover effect to enlarge the point */
+            background-color: #3498db;
         }
-        .commit-item:hover::after {
-            content: attr(data-tooltip); /* Usa l'attributo data-tooltip per il contenuto */
+
+        .commit-item::after {
+            content: attr(data-tooltip);
             position: absolute;
             left: 35px;
+            /* Positioned tooltip to the right of the point */
             top: 50%;
             transform: translateY(-50%);
             background-color: #34495e;
@@ -94,7 +109,16 @@
             white-space: nowrap;
             font-size: 0.8em;
             z-index: 10;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .commit-item:hover::after {
+            opacity: 1;
+            pointer-events: auto;
+            /* Tooltip shows only when hovering on the point */
         }
 
         .commit-header {
@@ -120,6 +144,7 @@
                 opacity: 0;
                 transform: translateY(20px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -130,38 +155,55 @@
         @media (max-width: 768px) {
             .container {
                 grid-template-columns: 1fr;
-                padding: 10px; /* Ridotto per dispositivi di media grandezza */
+                padding: 10px;
+                /* Ridotto per dispositivi di media grandezza */
             }
+
             .card {
-                padding: 10px; /* Riduzione del padding per rendere più spazio */
+                padding: 10px;
+                /* Riduzione del padding per rendere più spazio */
             }
+
             .repository-card {
-                padding: 10px; /* Uniformità del padding */
+                padding: 10px;
+                /* Uniformità del padding */
             }
         }
 
         @media (max-width: 480px) {
             .container {
-                padding: 5px; /* Ulteriore riduzione del padding per piccoli dispositivi */
+                padding: 5px;
+                /* Ulteriore riduzione del padding per piccoli dispositivi */
             }
+
             .card {
-                padding: 8px; /* Ottimizzato per piccoli schermi */
+                padding: 8px;
+                /* Ottimizzato per piccoli schermi */
             }
+
             .card h2 {
-                font-size: 1.2em; /* Adatta la dimensione del testo */
+                font-size: 1.2em;
+                /* Adatta la dimensione del testo */
             }
+
             .repository-card {
-                padding: 8px; /* Consistenza nel padding per le card */
+                padding: 8px;
+                /* Consistenza nel padding per le card */
             }
+
             .repository-card h3 {
-                font-size: 1em; /* Ridimensiona i titoli per risparmiare spazio */
+                font-size: 1em;
+                /* Ridimensiona i titoli per risparmiare spazio */
             }
+
             .repository-card p {
-                font-size: 0.8em; /* Adatta la dimensione del testo nei paragrafi */
+                font-size: 0.8em;
+                /* Adatta la dimensione del testo nei paragrafi */
             }
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <!-- Left Column -->
@@ -185,7 +227,8 @@
         <!-- Center Column -->
         <div class="card">
             <h2>About Me & Projects</h2>
-            <p>I'm Frenky Dema, a passionate mobile app developer with a specialization in Flutter. I enjoy creating efficient and user-friendly applications that provide great user experiences.</p>
+            <p>I'm Frenky Dema, a passionate mobile app developer with a specialization in Flutter. I enjoy creating
+                efficient and user-friendly applications that provide great user experiences.</p>
             <h2>My Repositories</h2>
             <div id="repositories" class="card-list">
                 <p>Loading repositories...</p>
@@ -207,30 +250,30 @@
     <script>
         // Simulating data fetching and dynamically adding updates
         fetch('https://api.github.com/users/FrenkyDema/events')
-        .then(response => response.json())
-        .then(data => {
-            const updates = document.getElementById('latest-updates');
-            updates.innerHTML = ''; // Clear existing content
+            .then(response => response.json())
+            .then(data => {
+                const updates = document.getElementById('latest-updates');
+                updates.innerHTML = ''; // Clear existing content
 
-            data.slice(0, 5).forEach((event, index) => {
-                const li = document.createElement('li');
-                li.classList.add('commit-item');
-                li.style.animationDelay = `${index * 0.1}s`; // Staggered animation
+                data.slice(0, 5).forEach((event, index) => {
+                    const li = document.createElement('li');
+                    li.classList.add('commit-item');
+                    li.style.animationDelay = `${index * 0.1}s`; // Staggered animation
 
-                li.setAttribute('data-tooltip', `Details about commit in ${event.repo.name}`); // Tooltip info
+                    li.setAttribute('data-tooltip', `Details about commit in ${event.repo.name}`); // Tooltip info
 
-                li.innerHTML = `
+                    li.innerHTML = `
                     <div class="commit-header">${event.repo.name}</div>
                     <div class="commit-message">${event.type.replace('Event', '')} - ${event.payload.commits ? event.payload.commits[0].message : 'No detailed description available.'}</div>
                     <div class="commit-meta">${new Date(event.created_at).toLocaleDateString()} at ${new Date(event.created_at).toLocaleTimeString()}</div>
                 `;
-                updates.appendChild(li);
+                    updates.appendChild(li);
+                });
+            })
+            .catch(error => {
+                const updates = document.getElementById('latest-updates');
+                updates.innerHTML = '<li>Could not load updates.</li>';
             });
-        })
-        .catch(error => {
-            const updates = document.getElementById('latest-updates');
-            updates.innerHTML = '<li>Could not load updates.</li>';
-        });
 
         // Fetch repositories and display them in reverse order
         fetch('https://api.github.com/users/FrenkyDema/repos')
@@ -350,4 +393,5 @@
         }
     </script>
 </body>
+
 </html>
