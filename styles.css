@@ -214,22 +214,48 @@ body {
     /* Vertical line color */
 }
 
-/* Each timeline item */
+/* Card Style */
 .timeline-item {
-    position: relative;
-    margin-bottom: 20px;
-    padding-left: 40px;
-    /* Adjusted for more space between the line and the content */
-    transition: transform 0.3s ease, background-color 0.3s ease;
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeInUp 0.5s forwards;
+    background-color: #34495e;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 10px;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.timeline-item:hover .timeline-content {
-    background-color: #1abc9c;
-    color: #2c3e50;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+.timeline-item:hover {
+    background-color: #1abc9c; /* Slightly brighter on hover */
+    transform: translateY(-5px); /* Lift effect */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Enhanced shadow */
+}
+
+.timeline-item h3, .timeline-item p {
+    margin: 0;
+    color: #ecf0f1;
+    font-size: 1em;
+}
+
+.timeline-item p {
+    color: #bdc3c7; /* Slightly lighter text for description */
+}
+
+.timeline-date {
+    display: block;
+    font-size: 0.8em;
+    color: #bdc3c7;
+    margin-top: 10px;
+}
+
+/* Card Header Style */
+.timeline-item h3 {
+    color: #1abc9c;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+.timeline-item:hover h3 {
+    color: #ecf0f1; /* Invert text color on hover */
 }
 
 /* Timeline icon */
