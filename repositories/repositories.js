@@ -50,6 +50,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const reposContainer = document.getElementById('repositories');
         console.log('Displaying repositories:', repos);
 
+        if (!reposContainer) {
+            console.error('No element with ID "repositories" found in the DOM.');
+            return;
+        }
+
         if (!repos || repos.length === 0) {
             reposContainer.innerHTML = '<p>No repositories found.</p>';
             return;
@@ -65,6 +70,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 <a href="${repo.html_url}" target="_blank">View Repository</a>
             </div>
         `).join('');
+
+        console.log('Updated repositories container innerHTML:', reposContainer.innerHTML);
     }
 
     // Call the function to fetch and display repositories
