@@ -3,47 +3,104 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Frenky Dema's personal GitHub profile page">
-    <meta name="author" content="Frenky Dema">
-    <title>Frenky Dema - Profile</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Test Fetch Repositories</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 20px;
+        }
+
+        #repositories {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-top: 20px;
+        }
+
+        .repository {
+            border-bottom: 1px solid #ddd;
+            padding: 10px 0;
+        }
+
+        .repository:last-child {
+            border-bottom: none;
+        }
+
+        h3 {
+            margin: 0 0 5px 0;
+        }
+
+        p {
+            margin: 0;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Latest Updates Section -->
-        <div class="card" id="latest-updates-section">
-            <!-- Content will be included here -->
-        </div>
 
-        <!-- My Repositories Section -->
-        <div class="card" id="repositories-section">
-            <!-- Content will be included here -->
-        </div>
-
-        <!-- Statistics Section -->
-        <div class="card" id="statistics-section">
-            <!-- Content will be included here -->
-        </div>
+    <h2>Test Fetch Repositories</h2>
+    <div id="repositories">
+        <p>Loading repositories...</p>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        // Load the sections via JavaScript
-        function loadSection(sectionId, url, scriptUrl) {
-            fetch(url)
-                .then(response => response.text())
+        // Function to fetch repositories from GitHub
+        function fetchRepositories() {
+            console.log('Starting fetch for repositories...');
+            fetch('https://api.github.com/users/FrenkyDema/repos')
+                .then(response => {
+                    console.log('Fetch response received:', response);
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok. Status: ' + response.status);
+                    }
+                    return response.json();
+                })
                 .then(data => {
-                    document.getElementById(sectionId).innerHTML = data;
-                    const script = document.createElement('script');
-                    script.src = scriptUrl;
-                    document.body.appendChild(script);
+                    console.log('Repositories fetched successfully:', data);
+
+                    if (data && data.length > 0) {
+                        displayRepositories(data);
+                    } else {
+                        console.log('No repositories found');
+                        document.getElementById('repositories').innerHTML = '<p>No repositories found.</p>';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching repositories:', error);
+                    document.getElementById('repositories').innerHTML = `
+                        <p>Could not load repositories. Please try again later.</p>`;
                 });
         }
 
-        // Load the sections and their respective scripts
-        loadSection('latest-updates-section', 'latest-updates/latest-updates.html', 'latest-updates/latest-updates.js');
-        loadSection('repositories-section', 'repositories/repositories.html', 'repositories/repositories.js');
-        loadSection('statistics-section', 'statistics/statistics.html', 'statistics/statistics.js');
+        // Function to display repositories
+        function displayRepositories(repos) {
+            const reposContainer = document.getElementById('repositories');
+            console.log('Displaying repositories:', repos);
+
+            reposContainer.innerHTML = ''; // Clear previous content
+
+            repos.forEach(repo => {
+                const repoElement = document.createElement('div');
+                repoElement.className = 'repository';
+                repoElement.innerHTML = `
+                    <h3>${repo.name}</h3>
+                    <p>${repo.description || 'No description available.'}</p>
+                    <p>Language: ${repo.language || 'Unknown'}</p>
+                    <p>Stars: ${repo.stargazers_count}</p>
+                    <a href="${repo.html_url}" target="_blank">View Repository</a>
+                `;
+                reposContainer.appendChild(repoElement);
+            });
+
+            console.log('Repositories displayed successfully.');
+        }
+
+        // Start fetching repositories when the DOM is fully loaded
+        document.addEventListener('DOMContentLoaded', fetchRepositories);
     </script>
+
 </body>
 </html>
