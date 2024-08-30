@@ -17,34 +17,70 @@
         .navbar {
             display: flex;
             justify-content: space-around;
-            background-color: #333;
+            background-color: #1a1a2e;
             padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: background-color 0.3s;
         }
 
         .navbar li {
             list-style: none;
+            position: relative;
         }
 
         .navbar a {
-            color: #fff;
+            color: #e94560;
             text-decoration: none;
             padding: 0.5rem 1rem;
-            transition: background-color 0.3s;
+            transition: background-color 0.3s, color 0.3s;
             border-radius: 5px;
+            display: block;
         }
 
         .navbar a:hover {
-            background-color: #555;
+            background-color: #0f3460;
+            color: #fff;
+        }
+
+        .navbar li:hover > ul {
+            display: block;
+        }
+
+        .navbar ul {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #16213e;
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+        }
+
+        .navbar ul li a {
+            padding: 1rem;
+            white-space: nowrap;
+        }
+
+        .navbar ul li a:hover {
+            background-color: #0f3460;
         }
 
         .section {
             padding: 2rem;
             margin: 2rem auto;
             max-width: 1200px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
         .card {
-            background-color: #fff;
+            background-color: #eaeaea;
             padding: 2rem;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -60,20 +96,35 @@
             height: 150px;
             border-radius: 50%;
             margin-bottom: 1rem;
+            border: 4px solid #e94560;
         }
 
         h1, h2 {
+            color: #16213e;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        p, li {
             color: #333;
+            margin-bottom: 0.5rem;
         }
 
         footer {
             text-align: center;
-            padding: 1rem;
-            background-color: #333;
-            color: #fff;
-            position: fixed;
-            width: 100%;
-            bottom: 0;
+            padding: 1.5rem;
+            background-color: #1a1a2e;
+            color: #e94560;
+            margin-top: 2rem;
+            border-radius: 0 0 10px 10px;
         }
 
         @media (max-width: 768px) {
@@ -95,6 +146,14 @@
                 width: 100px;
                 height: 100px;
             }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
         }
     </style>
 </head>
@@ -104,7 +163,14 @@
             <ul class="navbar">
                 <li><a href="#profile">Profile</a></li>
                 <li><a href="#experience">Experience</a></li>
-                <li><a href="#skills">Skills</a></li>
+                <li>
+                    <a href="#skills">Skills</a>
+                    <ul>
+                        <li><a href="#skills-frontend">Frontend</a></li>
+                        <li><a href="#skills-backend">Backend</a></li>
+                        <li><a href="#skills-ml">Machine Learning</a></li>
+                    </ul>
+                </li>
                 <li><a href="#projects">Projects</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
@@ -113,10 +179,10 @@
 
     <section id="profile" class="section">
         <div class="card">
-            <img src="profile_picture.jpg" alt="Profile Picture" class="profile-picture">
-            <h1>Nicolas Garbari</h1>
-            <p>Software Engineer | AI Enthusiast | Web Developer</p>
-            <p>Location: Trento, Italy</p>
+            <img id="profile-picture" src="" alt="Profile Picture" class="profile-picture">
+            <h1 id="name">Nicolas Garbari</h1>
+            <p id="headline">Software Engineer | AI Enthusiast | Web Developer</p>
+            <p id="location">Location: Trento, Italy</p>
             <a href="https://www.linkedin.com/in/nicolas-garbari-96855b223/" target="_blank">View LinkedIn</a>
         </div>
     </section>
@@ -124,10 +190,8 @@
     <section id="experience" class="section">
         <div class="card">
             <h2>Experience</h2>
-            <ul>
-                <li>Software Engineer at Company X</li>
-                <li>Web Developer at Company Y</li>
-                <li>AI Researcher at University Z</li>
+            <ul id="experience-list">
+                <!-- Experience data will be injected here -->
             </ul>
         </div>
     </section>
@@ -135,10 +199,8 @@
     <section id="skills" class="section">
         <div class="card">
             <h2>Skills</h2>
-            <ul>
-                <li>JavaScript, HTML, CSS</li>
-                <li>Python, Machine Learning</li>
-                <li>React, Node.js</li>
+            <ul id="skills-list">
+                <!-- Skills data will be injected here -->
             </ul>
         </div>
     </section>
@@ -146,10 +208,8 @@
     <section id="projects" class="section">
         <div class="card">
             <h2>Projects</h2>
-            <ul>
-                <li>Project A - Description</li>
-                <li>Project B - Description</li>
-                <li>Project C - Description</li>
+            <ul id="projects-list">
+                <!-- Projects data will be injected here -->
             </ul>
         </div>
     </section>
@@ -181,6 +241,66 @@
                         behavior: 'smooth'
                     });
                 });
+            });
+
+            // Change navbar background on scroll
+            window.addEventListener('scroll', function() {
+                const navbar = document.querySelector('.navbar');
+                if (window.scrollY > 50) {
+                    navbar.style.backgroundColor = '#0f3460';
+                } else {
+                    navbar.style.backgroundColor = '#1a1a2e';
+                }
+            });
+
+            // Simulate fetching data from LinkedIn API
+            const profileData = {
+                name: "Nicolas Garbari",
+                headline: "Software Engineer | AI Enthusiast | Web Developer",
+                location: "Trento, Italy",
+                profilePicture: "profile_picture.jpg",
+                experience: [
+                    "Software Engineer at Company X",
+                    "Web Developer at Company Y",
+                    "AI Researcher at University Z"
+                ],
+                skills: [
+                    "JavaScript, HTML, CSS",
+                    "Python, Machine Learning",
+                    "React, Node.js"
+                ],
+                projects: [
+                    "Project A - Description",
+                    "Project B - Description",
+                    "Project C - Description"
+                ]
+            };
+
+            // Injecting data into the HTML
+            document.getElementById('name').textContent = profileData.name;
+            document.getElementById('headline').textContent = profileData.headline;
+            document.getElementById('location').textContent = profileData.location;
+            document.getElementById('profile-picture').src = profileData.profilePicture;
+
+            const experienceList = document.getElementById('experience-list');
+            profileData.experience.forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = item;
+                experienceList.appendChild(li);
+            });
+
+            const skillsList = document.getElementById('skills-list');
+            profileData.skills.forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = item;
+                skillsList.appendChild(li);
+            });
+
+            const projectsList = document.getElementById('projects-list');
+            profileData.projects.forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = item;
+                projectsList.appendChild(li);
             });
         });
     </script>
