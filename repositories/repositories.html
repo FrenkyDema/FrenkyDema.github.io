@@ -3,51 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Test Fetch Repositories</title>
+    <title>Test Inline Script</title>
 </head>
 <body>
 
-    <h2>Testing Repository Fetch</h2>
+    <h2>Testing Inline Script</h2>
 
     <script>
-        console.log('Script loaded and running.');
+        console.log('Inline script is running.');
 
-        // Basic function to fetch repositories and log them to the console
-        function testFetchRepositories() {
-            console.log('Starting fetch for repositories...');
-            fetch('https://api.github.com/users/FrenkyDema/repos')
-                .then(response => {
-                    console.log('Fetch response received:', response);
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok. Status: ' + response.status);
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    console.log('Repositories fetched successfully:', data);
-                    if (data && data.length > 0) {
-                        console.log('Repository data:', data);
-                        displayRepositories(data);
-                    } else {
-                        console.log('No repositories found.');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error fetching repositories:', error);
-                });
-        }
-
-        // Function to display repositories in the console
-        function displayRepositories(repos) {
-            console.log('Displaying repositories:', repos);
-
-            repos.forEach(repo => {
-                console.log('Repository:', repo.name, 'Description:', repo.description);
-            });
-        }
-
-        // Explicitly call the function to test
-        testFetchRepositories();
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM fully loaded and parsed.');
+        });
     </script>
 
 </body>
