@@ -14,6 +14,13 @@ function fetchRepositories() {
 
 function displayRepositories(repos) {
     const reposContainer = document.getElementById('repositories');
+    
+    // Handle empty repository list case
+    if (repos.length === 0) {
+        reposContainer.innerHTML = '<p>No repositories found.</p>';
+        return;
+    }
+    
     reposContainer.innerHTML = repos.map(repo => {
         return `
             <div class="repository-card">
