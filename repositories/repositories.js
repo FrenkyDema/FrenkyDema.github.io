@@ -33,18 +33,21 @@ document.addEventListener('DOMContentLoaded', () => {
             })
             .catch(error => {
                 console.error('Error fetching repositories:', error);
-                document.getElementById('repositories').innerHTML = '<p>Could not load repositories.</p>';
+                document.getElementById('repositories').innerHTML = `
+                    <p>Could not load repositories. Please try again later.</p>`;
             });
     }
 
     // Function to display repositories
     function displayRepositories(repos) {
         const reposContainer = document.getElementById('repositories');
-        if (repos.length === 0) {
+        if (!repos || repos.length === 0) {
+            console.log('No repositories found');
             reposContainer.innerHTML = '<p>No repositories found.</p>';
             return;
         }
 
+        console.log('Displaying repositories');
         reposContainer.innerHTML = repos.map(repo => `
             <div class="repository-card">
                 <div class="repository-header">
