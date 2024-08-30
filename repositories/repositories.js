@@ -87,7 +87,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (filterIcon) {
         filterIcon.addEventListener('click', () => {
             const filters = document.querySelector('.filters');
-            filters.style.display = filters.style.display === 'none' || filters.style.display === '' ? 'flex' : 'none';
+            if (filters) {
+                filters.style.display = filters.style.display === 'none' || filters.style.display === '' ? 'flex' : 'none';
+            }
         });
     }
 
