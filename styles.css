@@ -154,11 +154,11 @@ body {
 .repository-card {
     display: flex;
     flex-direction: column;
-    background-color: #2c3e50;
-    border: 1px solid #444;
+    background-color: transparent; /* Remove the card background */
+    border: none; /* Remove the border */
     padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 0; /* Remove the border-radius */
+    box-shadow: none; /* Remove the shadow */
     margin-bottom: 15px;
     transition: background-color 0.3s ease, transform 0.3s ease;
     opacity: 0;
@@ -168,33 +168,7 @@ body {
 
 .repository-card:hover {
     background-color: #34495e;
-    border-color: #1abc9c;
     transform: translateY(-5px);
-}
-
-/* Repository header and footer animations */
-.repository-header h3,
-.repository-footer {
-    transition: color 0.3s ease;
-}
-
-.repository-header h3:hover,
-.repository-footer:hover {
-    color: #16a085;
-}
-
-.repository-header a {
-    text-decoration: none;
-    font-size: 0.9em;
-    color: #1abc9c;
-    background-color: #1abc9c1a;
-    padding: 5px 10px;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-}
-
-.repository-header a:hover {
-    background-color: #1abc9c33;
 }
 
 /* Timeline container */
@@ -208,19 +182,18 @@ body {
 /* Timeline item */
 .timeline-item {
     position: relative;
-    background-color: #34495e;
-    border-radius: 8px;
+    background-color: transparent; /* Remove the card background */
+    border-radius: 0; /* Remove the border-radius */
     padding: 15px;
     margin-bottom: 10px;
     transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: none; /* Remove the shadow */
     z-index: 1; /* Ensure timeline item is beneath the icon */
 }
 
 .timeline-item:hover {
-    background-color: #1abc9c; /* Slightly brighter on hover */
+    background-color: #34495e; /* Slightly brighter on hover */
     transform: translateY(-5px); /* Lift effect */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Enhanced shadow */
     z-index: 2; /* Bring the card to the front on hover */
 }
 
@@ -271,35 +244,31 @@ body {
     color: #ecf0f1; /* Invert text color on hover */
 }
 
-/* Timeline content */
-.timeline-content {
+/* Statistics Section */
+#statistics-section {
     background-color: #34495e;
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeInUp 0.5s forwards;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Timeline item title */
-.timeline-content h3 {
-    margin: 0;
-    font-size: 1.2em;
-    color: #1abc9c;
+#statistics-section:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-/* Timeline item description */
-.timeline-content p {
-    margin: 5px 0;
-    font-size: 0.9em;
-    color: #ecf0f1;
+#languageChart {
+    max-width: 100%;
+    height: auto;
+    background-color: transparent; /* Ensure there's no background on the chart */
 }
 
-/* Timeline item date */
-.timeline-date {
-    font-size: 0.8em;
-    color: #bdc3c7;
+#stats {
+    margin-top: 20px;
+    padding: 0;
+    text-align: center;
 }
 
 /* Animation for fade-in effect */
@@ -339,31 +308,4 @@ body {
     .card h2 {
         font-size: 1.2em;
     }
-}
-/* Statistics Section */
-#statistics-section {
-    background-color: #34495e;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-#statistics-section:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-}
-
-#languageChart {
-    max-width: 100%;
-    height: auto;
-    background-color: transparent; /* Ensure there's no background on the chart */
-}
-
-/* Adjust padding around the chart to fit well within the card */
-#stats {
-    margin-top: 20px;
-    padding: 0;
-    text-align: center;
 }
