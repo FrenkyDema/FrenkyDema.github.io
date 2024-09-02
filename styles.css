@@ -1,6 +1,6 @@
 /* General body styles */
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     background-color: #2c3e50;
     color: #ecf0f1;
     margin: 0;
@@ -263,7 +263,8 @@ body {
     border-radius: 8px;
     padding: 15px;
     margin-bottom: 10px;
-    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.3s ease,
+        box-shadow 0.3s ease;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     z-index: 1; /* Ensure timeline item is beneath the icon */
 }
