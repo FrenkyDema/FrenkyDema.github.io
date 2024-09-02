@@ -340,3 +340,28 @@ body {
         font-size: 1.2em;
     }
 }
+
+/* Statistics Section */
+#statistics-section {
+    background-color: #34495e;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#statistics-section:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+#stats {
+    margin-top: 20px;
+    text-align: center;
+}
+
+#languageChart {
+    max-width: 100%;
+    height: auto;
+}

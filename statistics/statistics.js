@@ -1,20 +1,14 @@
-// Fetch statistics using GitHub API and create chart for language usage
+// Fetch statistics using GitHub API and create chart
 fetch('https://api.github.com/users/FrenkyDema/repos')
     .then(response => response.json())
     .then(repos => {
         const languages = {};
-        const starsPerLanguage = {};
         repos.forEach(repo => {
-            const lang = repo.language || 'Unknown';
-            if (lang) {
-                if (!languages[lang]) {
-                    languages[lang] = 0;
+            if (repo.language) {
+                if (!languages[repo.language]) {
+                    languages[repo.language] = 0;
                 }
-                languages[lang]++;
-                if (!starsPerLanguage[lang]) {
-                    starsPerLanguage[lang] = 0;
-                }
-                starsPerLanguage[lang] += repo.stargazers_count;
+                languages[repo.language]++;
             }
         });
 
@@ -34,34 +28,6 @@ fetch('https://api.github.com/users/FrenkyDema/repos')
                 plugins: {
                     legend: {
                         position: 'bottom',
-                    },
-                },
-            }
-        });
-
-        const ctxStars = document.getElementById('starsChart').getContext('2d');
-        new Chart(ctxStars, {
-            type: 'bar',
-            data: {
-                labels: Object.keys(starsPerLanguage),
-                datasets: [{
-                    label: 'Stars per Language',
-                    data: Object.values(starsPerLanguage),
-                    backgroundColor: ['#3498db', '#e74c3c', '#9b59b6', '#f1c40f', '#1abc9c'],
-                    borderColor: '#2c3e50',
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                },
-                responsive: true,
-                plugins: {
-                    legend: {
-                        position: 'top'
                     },
                 },
             }
