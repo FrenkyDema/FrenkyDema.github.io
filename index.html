@@ -10,22 +10,26 @@
 </head>
 <body>
     <div class="container">
+        <!-- Profile Section -->
+        <div id="profile-section">
+            <!-- Content will be included here -->
+        </div>
+
         <!-- Latest Updates Section -->
         <div class="card" id="latest-updates-section">
             <!-- Content will be included here -->
         </div>
 
+        <!-- My Repositories Section -->
         <div class="card" id="repositories-section">
             <!-- Content will be included here -->
-        </div><!-- My Repositories Section -->
-        
+        </div>
 
         <!-- Statistics Section -->
         <div class="card" id="statistics-section">
             <!-- Content will be included here -->
         </div>
     </div>
-
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
@@ -46,6 +50,7 @@
         }
 
         // Load the sections and their respective scripts
+        loadSection('profile-section', 'profile/profile.html', 'profile/profile.js');
         loadSection('latest-updates-section', 'latest-updates/latest-updates.html', 'latest-updates/latest-updates.js');
         loadSection('repositories-section', 'repositories/repositories.html', 'repositories/repositories.js');
         loadSection('statistics-section', 'statistics/statistics.html', 'statistics/statistics.js');
