@@ -70,7 +70,7 @@ function getEventDescription(event) {
   try {
     if (
       event.type === "PushEvent" &&
-      event.payload.commits &&
+      event.playload.commits &&
       event.payload.commits.length > 0
     ) {
       description = event.payload.commits[0].message;

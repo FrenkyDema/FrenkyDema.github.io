@@ -1,6 +1,12 @@
 /**
+ * A proxy URL to bypass CORS restrictions.
+ * We use allorigins.win which wraps the response in JSON.
+ */
+const PROXY_URL = "https://api.allorigins.win/get?url=";
+
+/**
  * Fetches the list of packages from a publisher and then fetches detailed
- * scores for each package.
+ * scores for each package, using a CORS proxy.
  */
 function fetchPubDevPackages() {
   const packageListContainer = document.getElementById("pub-package-list");
@@ -9,30 +15,33 @@ function fetchPubDevPackages() {
     return;
   }
 
-  // Step 1: Search for packages by publisher
-  fetch("https://pub.dev/api/search?q=publisher:francescodema.dev")
+  // Step 1: Define the target URL and encode it
+  const searchUrl = "https_://pub.dev/api/search?q=publisher:francescodema.dev";
+  const proxiedSearchUrl = PROXY_URL + encodeURIComponent(searchUrl);
+
+  fetch(proxiedSearchUrl)
     .then((response) => {
       if (!response.ok) {
-        throw new Error("Failed to search for publisher.");
+        throw new Error("Failed to fetch from proxy.");
       }
-      return response.json();
+      return response.json(); // Get the proxy's JSON response
     })
-    .then((searchResult) => {
+    .then((data) => {
+      // The actual content is inside the 'contents' property as a string
+      const searchResult = JSON.parse(data.contents);
+
       if (!searchResult.packages || searchResult.packages.length === 0) {
         throw new Error("No packages found for this publisher.");
       }
 
       // Step 2: Create a list of promises to fetch details for each package
       const fetchPromises = searchResult.packages.map((pkgSummary) => {
-        return fetch(`https://pub.dev/api/packages/${pkgSummary.package}`)
-          .then((response) => {
-            if (!response.ok) {
-              throw new Error(
-                `Package details not found: ${pkgSummary.package}`
-              );
-            }
-            return response.json();
-          })
+        const detailUrl = `https://pub.dev/api/packages/${pkgSummary.package}`;
+        const proxiedDetailUrl = PROXY_URL + encodeURIComponent(detailUrl);
+
+        return fetch(proxiedDetailUrl)
+          .then((response) => response.json())
+          .then((data) => JSON.parse(data.contents)) // Parse the content string
           .catch((error) => {
             console.error(error);
             return null; // Return null on error
@@ -53,7 +62,6 @@ function fetchPubDevPackages() {
 
       packageListContainer.innerHTML = "";
 
-      // Sort packages by popularity
       validPackages.sort(
         (a, b) =>
           (b.score?.popularityScore || 0) - (a.score?.popularityScore || 0)
