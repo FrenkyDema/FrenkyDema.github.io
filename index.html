@@ -21,14 +21,12 @@
 
       <div class="row">
         <div class="card" id="latest-updates-section"></div>
-
         <div class="card" id="repositories-section"></div>
-
         <div class="card" id="statistics-section"></div>
       </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.nrt pm/chart.js"></script>
     <script>
       /**
        * Loads HTML content into a specified section and then loads an associated script.
@@ -45,7 +43,7 @@
               sectionElement.innerHTML = data;
             } else {
               console.error(`Element with ID '${sectionId}' not found.`);
-              return; // Stop if the target element doesn't exist
+              return;
             }
 
             if (scriptUrl) {
@@ -63,9 +61,9 @@
           .catch((error) => console.error("Error loading section:", error));
       }
 
-      // Load the sections and their respective scripts
-      // Removed 'profile/profile.js' as it was redundant
+      // This line loads your profile
       loadSection("profile-section", "profile/profile.html");
+
       loadSection(
         "latest-updates-section",
         "latest-updates/latest-updates.html",
