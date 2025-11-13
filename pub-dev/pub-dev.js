@@ -15,7 +15,6 @@ function fetchPubDevPackages() {
     return;
   }
 
-  // Step 1: Define the target URL and create the proxied URL
   const searchUrl = "https://pub.dev/api/search?q=publisher:francescodema.dev";
   const proxiedSearchUrl = PROXY_URL + searchUrl;
 
@@ -24,34 +23,50 @@ function fetchPubDevPackages() {
       if (!response.ok) {
         throw new Error("Failed to fetch from proxy for search.");
       }
-      return response.json(); // This is now the direct JSON from pub.dev
+      return response.json();
     })
     .then((searchResult) => {
       if (!searchResult.packages || searchResult.packages.length === 0) {
         throw new Error("No packages found for this publisher.");
       }
 
-      // Step 2: Create a list of promises to fetch details for each package
+      // Step 2: Create a list of promises to fetch details AND scores
       const fetchPromises = searchResult.packages.map((pkgSummary) => {
         const detailUrl = `https://pub.dev/api/packages/${pkgSummary.package}`;
-        const proxiedDetailUrl = PROXY_URL + detailUrl;
+        const scoreUrl = `https://pub.dev/api/packages/${pkgSummary.package}/score`;
 
-        return fetch(proxiedDetailUrl)
-          .then((response) => {
-            if (!response.ok) {
-              throw new Error(
-                `Package details not found: ${pkgSummary.package}`
-              );
-            }
-            return response.json(); // Direct JSON
+        const proxiedDetailUrl = PROXY_URL + detailUrl;
+        const proxiedScoreUrl = PROXY_URL + scoreUrl;
+
+        // Fetch both details and score concurrently
+        const detailPromise = fetch(proxiedDetailUrl).then((res) => res.json());
+        const scorePromise = fetch(proxiedScoreUrl).then((res) => res.json());
+
+        // Combine them when both are done
+        return Promise.all([detailPromise, scorePromise])
+          .then(([detailData, scoreData]) => {
+            // --- As requested: Logging the raw data ---
+            console.log(`Data for ${pkgSummary.package}:`, {
+              detail: detailData,
+              score: scoreData,
+            });
+            // --- End of log ---
+
+            // Combine the results into the structure our card function expects
+            return {
+              latest: detailData.latest, // Get 'latest' from detail
+              score: scoreData.score, // Get 'score' from score
+            };
           })
           .catch((error) => {
-            console.error(error);
-            return null; // Return null on error
+            console.error(
+              `Failed to fetch data for ${pkgSummary.package}`,
+              error
+            );
+            return null;
           });
       });
 
-      // Step 3: Wait for all detail fetches to complete
       return Promise.all(fetchPromises);
     })
     .then((allPackageData) => {
@@ -71,6 +86,10 @@ function fetchPubDevPackages() {
       );
 
       validPackages.forEach((pkg) => {
+        // --- As requested: Logging the combined object ---
+        console.log("Creating card with combined data:", pkg);
+        // --- End of log ---
+
         const card = createPackageCard(pkg);
         packageListContainer.appendChild(card);
       });
@@ -94,13 +113,14 @@ function createPackageCard(pkg) {
   const card = document.createElement("div");
   card.classList.add("pub-package-card");
 
+  // Now 'pkg.latest' and 'pkg.score' are both present
   const latest = pkg.latest;
   const score = pkg.score || {
     likeCount: 0,
     popularityScore: 0,
     grantedPoints: 0,
   };
-  const maxPoints = 140; // Default, but score.maxPoints is better if available
+  const maxPoints = 140;
 
   const popularity = Math.round((score.popularityScore || 0) * 100);
   const pubPoints = score.grantedPoints || 0;
