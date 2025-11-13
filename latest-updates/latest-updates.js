@@ -1,67 +1,155 @@
-let updateData = []; // Array to hold fetched updates
-let updateIndex = 0; // Index to track how many updates are loaded at a time
+let allUpdatesData = [];
+let currentUpdateIndex = 0;
+const UPDATES_PER_PAGE = 3;
 
-// Fetch latest updates from GitHub API
+/**
+ * Fetches the latest public events (updates) from the GitHub API.
+ */
 function fetchUpdates() {
-    fetch('https://api.github.com/users/FrenkyDema/events')
-        .then(response => response.json())
-        .then(data => {
-            updateData = data;
-            loadMoreUpdates(); // Load the first set of updates
-        })
-        .catch(error => {
-            document.getElementById('timeline').innerHTML = '<p>Could not load updates.</p>';
-        });
+  fetch("https://api.github.com/users/FrenkyDema/events")
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(
+          "Network response was not ok. Status: " + response.status
+        );
+      }
+      return response.json();
+    })
+    .then((data) => {
+      allUpdatesData = data;
+
+      const loadMoreBtn = document.getElementById("load-more-updates-btn");
+      if (loadMoreBtn) {
+        loadMoreBtn.addEventListener("click", loadMoreUpdates);
+      } else {
+        console.error("Load more updates button not found");
+      }
+
+      loadMoreUpdates(); // Load the first set
+    })
+    .catch((error) => {
+      const timelineContainer = document.getElementById("timeline");
+      if (timelineContainer) {
+        timelineContainer.innerHTML = "<p>Could not load updates.</p>";
+      }
+      console.error("Error fetching updates:", error);
+    });
 }
 
+/**
+ * Gets an appropriate Font Awesome icon class based on the event type.
+ * @param {string} eventType - The type of the GitHub event.
+ * @returns {string} A string of Font Awesome icon classes.
+ */
+function getIconForEventType(eventType) {
+  if (eventType.includes("Push")) {
+    return "fas fa-upload";
+  } else if (eventType.includes("PullRequest")) {
+    return "fas fa-code-pull-request";
+  } else if (eventType.includes("Issue")) {
+    return "fas fa-exclamation-circle";
+  } else if (eventType.includes("Create")) {
+    return "fas fa-plus-circle";
+  } else if (eventType.includes("Watch") || eventType.includes("Star")) {
+    return "fas fa-star";
+  } else if (eventType.includes("Fork")) {
+    return "fas fa-code-branch";
+  }
+  return "fas fa-code-branch"; // Default icon
+}
+
+/**
+ * Generates a descriptive text message for a GitHub event.
+ * @param {object} event - The GitHub event object.
+ * @returns {string} A human-readable description of the event.
+ */
+function getEventDescription(event) {
+  const eventType = event.type.replace("Event", "");
+  let description = "No detailed description available.";
+
+  try {
+    if (
+      event.type === "PushEvent" &&
+      event.payload.commits &&
+      event.payload.commits.length > 0
+    ) {
+      description = event.payload.commits[0].message;
+    } else if (
+      event.type === "PullRequestEvent" &&
+      event.payload.pull_request
+    ) {
+      description = event.payload.pull_request.title;
+    } else if (
+      (event.type === "IssuesEvent" || event.type === "IssueCommentEvent") &&
+      event.payload.issue
+    ) {
+      description = event.payload.issue.title;
+    } else if (event.type === "CreateEvent") {
+      description = `Created ${event.payload.ref_type}: ${
+        event.payload.ref || event.repo.name
+      }`;
+    } else if (event.type === "WatchEvent") {
+      description = `Starred the repository.`;
+    }
+  } catch (e) {
+    console.warn("Could not parse event description:", e, event);
+  }
+
+  // Truncate long descriptions
+  if (description.length > 100) {
+    description = description.substring(0, 100) + "...";
+  }
+
+  return `${eventType} - ${description}`;
+}
+
+/**
+ * Loads the next batch of updates into the timeline.
+ */
 function loadMoreUpdates() {
-    const timelineContainer = document.getElementById('timeline');
-    const nextIndex = updateIndex + 3; // Load 3 updates at a time
-    const updatesToLoad = updateData.slice(updateIndex, nextIndex);
+  const timelineContainer = document.getElementById("timeline");
+  if (!timelineContainer) return;
 
-    updatesToLoad.forEach(event => {
-        const timelineItem = document.createElement('div');
-        timelineItem.classList.add('timeline-item');
+  const nextIndex = currentUpdateIndex + UPDATES_PER_PAGE;
+  const updatesToLoad = allUpdatesData.slice(currentUpdateIndex, nextIndex);
 
-        // Choose an appropriate icon based on event type
-        let iconClass = 'fa-code-branch'; // Default icon
-        if (event.type.includes('Push')) {
-            iconClass = 'fa-upload';
-        } else if (event.type.includes('PullRequest')) {
-            iconClass = 'fa-code-pull-request';
-        } else if (event.type.includes('Issue')) {
-            iconClass = 'fa-exclamation-circle';
-        } else if (event.type.includes('Create')) {
-            iconClass = 'fa-plus-circle';
-        }
+  updatesToLoad.forEach((event) => {
+    const timelineItem = document.createElement("div");
+    timelineItem.classList.add("timeline-item");
 
-        timelineItem.innerHTML = `
+    const iconClass = getIconForEventType(event.type);
+    const eventDescription = getEventDescription(event);
+    const eventDate = new Date(event.created_at);
+    const formattedDate = `${eventDate.toLocaleDateString()} at ${eventDate.toLocaleTimeString()}`;
+
+    timelineItem.innerHTML = `
             <div class="timeline-icon">
-                <i class="fas ${iconClass}"></i>
+                <i class="${iconClass}"></i>
             </div>
             <div class="timeline-content">
                 <h3>${event.repo.name}</h3>
-                <p>${event.type.replace('Event', '')} - ${event.payload.commits ? event.payload.commits[0].message : 'No detailed description available.'}</p>
-                <span class="timeline-date">${new Date(event.created_at).toLocaleDateString()} at ${new Date(event.created_at).toLocaleTimeString()}</span>
+                <p>${eventDescription}</p>
+                <span class="timeline-date">${formattedDate}</span>
             </div>
         `;
 
-        // Append the item to the timeline
-        timelineContainer.appendChild(timelineItem);
-    });
+    timelineContainer.appendChild(timelineItem);
+  });
 
-    updateIndex = nextIndex;
+  currentUpdateIndex = nextIndex;
 
-    // Hide load more button if all updates are loaded
-    if (updateIndex >= updateData.length) {
-        document.getElementById('load-more-btn').style.display = 'none';
+  const loadMoreBtn = document.getElementById("load-more-updates-btn");
+  if (loadMoreBtn) {
+    if (currentUpdateIndex >= allUpdatesData.length) {
+      loadMoreBtn.style.display = "none"; // Corrected ID
     } else {
-        // Scroll smoothly to the new updates
-        timelineContainer.lastElementChild.scrollIntoView({ behavior: 'smooth' });
+      if (timelineContainer.lastElementChild) {
+        timelineContainer.lastElementChild.scrollIntoView({
+          behavior: "smooth",
+        });
+      }
     }
+  }
 }
 
-document.getElementById('load-more-updates-btn').addEventListener('click', loadMoreUpdates);
-
-// Initialize updates on page load
 fetchUpdates();

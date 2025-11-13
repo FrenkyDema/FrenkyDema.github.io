@@ -1,426 +1,463 @@
 /* General body styles */
+* {
+  box-sizing: border-box;
+}
+
 body {
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #2c3e50;
-    color: #ecf0f1;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    min-height: 100vh;
-    overflow-x: hidden; /* Prevent horizontal scroll */
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #2c3e50;
+  color: #ecf0f1;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  overflow-x: hidden; /* Prevent horizontal scroll */
 }
 
 /* Container styles */
 .container {
-    width: 100%; /* Full width */
-    padding: 20px;
-    box-sizing: border-box;
+  width: 100%; /* Full width */
+  padding: 20px;
+  box-sizing: border-box;
 }
 
 /* Profile Section */
 .profile-section {
-    display: flex;
-    align-items: center;
-    background-color: #34495e;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    width: 100%;
+  display: flex;
+  align-items: center;
+  background-color: #34495e;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: 100%;
 }
 
 .profile-image img {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    margin-right: 20px;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  margin-right: 20px;
 }
 
 .profile-info {
-    flex-grow: 1;
+  flex-grow: 1;
 }
 
 .profile-info h1 {
-    color: #1abc9c;
-    font-size: 2em;
-    margin: 0;
+  color: #1abc9c;
+  font-size: 2em;
+  margin: 0;
 }
 
 .profile-info h2 {
-    color: #ecf0f1;
-    font-size: 1.2em;
-    margin: 5px 0 15px;
+  color: #ecf0f1;
+  font-size: 1.2em;
+  margin: 5px 0 15px;
 }
 
 .profile-info p {
-    color: #bdc3c7;
-    line-height: 1.5em;
-    font-size: 1em;
+  color: #bdc3c7;
+  line-height: 1.5em;
+  font-size: 1em;
 }
 
 /* Remove Social Links */
 .profile-links {
-    display: none; /* Hide the links */
+  display: none; /* Hide the links */
 }
 
 /* Row for 3 columns */
 .row {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr; /* Three equal columns */
-    gap: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr; /* Three equal columns */
+  gap: 20px;
 }
 
 /* Card styles */
 .card {
-    background: #34495e;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    box-sizing: border-box;
-    position: relative;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background: #34495e;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 /* Sticky Section Headers */
 .card h2 {
-    color: #1abc9c;
-    font-size: 1.6em;
-    margin-bottom: 15px;
-    border-bottom: 2px solid #1abc9c;
-    padding-bottom: 5px;
-    position: sticky;
-    top: 0;
-    background-color: #34495e;
-    z-index: 10;
+  color: #1abc9c;
+  font-size: 1.6em;
+  margin-bottom: 15px;
+  border-bottom: 2px solid #1abc9c;
+  padding-bottom: 5px;
+  position: sticky;
+  top: 0;
+  background-color: #34495e;
+  z-index: 10;
+  display: flex; /* Added for filter alignment */
+  justify-content: space-between; /* Added for filter alignment */
+  align-items: center; /* Added for filter alignment */
 }
 
 /* Load More button */
 .load-more-btn {
-    display: inline-block;
-    padding: 10px 20px;
-    margin-top: 10px;
-    background-color: #1abc9c;
-    color: #ecf0f1;
-    text-align: center;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.3s ease;
+  display: inline-block;
+  padding: 10px 20px;
+  margin-top: 10px;
+  background-color: #1abc9c;
+  color: #ecf0f1;
+  text-align: center;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .load-more-btn:hover {
-    background-color: #16a085;
-    transform: scale(1.05);
+  background-color: #16a085;
+  transform: scale(1.05);
 }
 
 .load-more-btn:active {
-    background-color: #148f77; /* Darker shade on active */
-    transform: scale(0.98); /* Slightly scale down on click */
+  background-color: #148f77; /* Darker shade on active */
+  transform: scale(0.98); /* Slightly scale down on click */
 }
 
 .load-more-btn:focus {
-    outline: none; /* Remove default focus outline */
-    box-shadow: 0 0 0 3px rgba(26, 188, 156, 0.5); /* Custom focus outline */
+  outline: none; /* Remove default focus outline */
+  box-shadow: 0 0 0 3px rgba(26, 188, 156, 0.5); /* Custom focus outline */
 }
 
 /* Filter Container */
 .filter-container {
-    display: flex;
-    justify-content: flex-end;
-    position: relative;
+  display: flex;
+  justify-content: flex-end;
+  position: relative;
+  margin-bottom: 15px; /* Added space below filter */
 }
 
 .filter-icon {
-    background-color: #1abc9c;
-    color: #ecf0f1;
-    padding: 10px;
-    border-radius: 50%;
-    cursor: pointer;
-    text-align: center;
-    border: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-    font-size: 1.5em;
+  background-color: #1abc9c;
+  color: #ecf0f1;
+  padding: 10px;
+  border-radius: 50%;
+  cursor: pointer;
+  text-align: center;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  font-size: 1.2em; /* Adjusted size */
+  width: 40px; /* Explicit size */
+  height: 40px; /* Explicit size */
 }
 
 .filter-icon:hover {
-    background-color: #16a085;
-    transform: rotate(90deg);
+  background-color: #16a085;
+  transform: rotate(90deg);
 }
 
 .filters {
-    display: none; /* Hidden by default */
-    flex-direction: column;
-    position: absolute;
-    top: 50px;
-    right: 0;
-    background-color: #2c3e50;
-    padding: 10px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  display: none; /* Hidden by default */
+  flex-direction: column;
+  position: absolute;
+  top: 50px;
+  right: 0;
+  background-color: #2c3e50;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 100; /* Ensure it's on top */
 }
 
 .filters select {
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #1abc9c;
-    background-color: #34495e;
-    color: #ecf0f1;
-    margin-bottom: 10px;
-    transition: background-color 0.3s ease;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #1abc9c;
+  background-color: #34495e;
+  color: #ecf0f1;
+  margin-bottom: 10px;
+  transition: background-color 0.3s ease;
 }
 
 .filters select:hover {
-    background-color: #1abc9c;
+  background-color: #1abc9c;
 }
 
 .search-button {
-    background-color: #1abc9c;
-    color: #ecf0f1;
-    padding: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    text-align: center;
-    border: none;
-    width: 100%;
-    transition: background-color 0.3s ease, transform 0.3s ease;
+  background-color: #1abc9c;
+  color: #ecf0f1;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+  border: none;
+  width: 100%;
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .search-button:hover {
-    background-color: #16a085;
-    transform: scale(1.05);
+  background-color: #16a085;
+  transform: scale(1.05);
 }
 
 /* Repository card styles */
 .repository-card {
-    display: flex;
-    flex-direction: column;
-    background-color: #2c3e50;
-    border: 1px solid #444;
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-bottom: 15px;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeInUp 0.5s forwards;
+  display: flex;
+  flex-direction: column;
+  background-color: #2c3e50;
+  border: 1px solid #444;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 15px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.5s forwards;
 }
 
 .repository-card:hover {
-    background-color: #34495e;
-    border-color: #1abc9c;
-    transform: translateY(-5px);
+  background-color: #34495e;
+  border-color: #1abc9c;
+  transform: translateY(-5px);
 }
 
-/* Repository header and footer animations */
-.repository-header h3,
-.repository-footer {
-    transition: color 0.3s ease;
+.repository-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.repository-header h3 {
+  margin: 0;
+  color: #1abc9c;
+  font-size: 1.2em;
 }
 
 .repository-header h3:hover,
 .repository-footer:hover {
-    color: #16a085;
+  color: #16a085;
 }
 
 .repository-header a {
-    text-decoration: none;
-    font-size: 0.9em;
-    color: #1abc9c;
-    background-color: #1abc9c1a;
-    padding: 5px 10px;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
+  text-decoration: none;
+  font-size: 0.9em;
+  color: #1abc9c;
+  background-color: #1abc9c1a;
+  padding: 5px 10px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
 }
 
 .repository-header a:hover {
-    background-color: #1abc9c33;
+  background-color: #1abc9c33;
 }
+
+.repository-description p {
+  color: #bdc3c7;
+  font-size: 0.9em;
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* NEW/Updated repository-footer styles */
+.repository-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 15px;
+  font-size: 0.9em;
+  color: #bdc3c7;
+}
+
+.repository-footer .language,
+.repository-footer .stars {
+  display: flex;
+  align-items: center;
+}
+
+.repository-footer i {
+  margin-right: 5px;
+  color: #1abc9c; /* Icon color */
+}
+/* End of new repository-footer styles */
 
 /* Timeline container */
 .timeline {
-    position: relative;
-    padding: 20px 0;
-    margin-top: 20px;
-    border-left: 2px solid #1abc9c; /* Vertical line color */
+  position: relative;
+  padding: 20px 0;
+  margin-top: 20px;
+  border-left: 2px solid #1abc9c; /* Vertical line color */
 }
 
 /* Timeline item */
 .timeline-item {
-    position: relative;
-    background-color: #34495e;
-    border-radius: 8px;
-    padding: 15px;
-    margin-bottom: 10px;
-    transition: background-color 0.3s ease, transform 0.3s ease,
-        box-shadow 0.3s ease;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    z-index: 1; /* Ensure timeline item is beneath the icon */
+  position: relative;
+  background-color: #34495e;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 10px;
+  margin-left: 20px; /* Added margin to make space for icon */
+  transition: background-color 0.3s ease, transform 0.3s ease,
+    box-shadow 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 1; /* Ensure timeline item is beneath the icon */
 }
 
 .timeline-item:hover {
-    background-color: #1abc9c; /* Slightly brighter on hover */
-    transform: translateY(-5px); /* Lift effect */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Enhanced shadow */
-    z-index: 2; /* Bring the card to the front on hover */
+  background-color: #1abc9c; /* Slightly brighter on hover */
+  transform: translateY(-5px); /* Lift effect */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Enhanced shadow */
+  z-index: 2; /* Bring the card to the front on hover */
 }
 
 /* Timeline icon */
 .timeline-icon {
-    position: absolute;
-    left: -12px; /* Center the icon on the vertical line */
-    top: 15px;
-    width: 24px;
-    height: 24px;
-    background-color: #1abc9c;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #ecf0f1;
-    font-size: 12px; /* Adjust icon size */
-    z-index: 3; /* Ensure the icon remains on top */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Add shadow to the icon */
+  position: absolute;
+  left: -12px; /* Center the icon on the vertical line */
+  top: 15px;
+  width: 24px;
+  height: 24px;
+  background-color: #1abc9c;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ecf0f1;
+  font-size: 12px; /* Adjust icon size */
+  z-index: 3; /* Ensure the icon remains on top */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Add shadow to the icon */
 }
 
 .timeline-item h3,
 .timeline-item p {
-    margin: 0;
-    color: #ecf0f1;
-    font-size: 1em;
+  margin: 0;
+  color: #ecf0f1;
+  font-size: 1em;
 }
 
 .timeline-item p {
-    color: #bdc3c7; /* Slightly lighter text for description */
+  color: #bdc3c7; /* Slightly lighter text for description */
+  margin-top: 5px; /* Added margin */
 }
 
 .timeline-date {
-    display: block;
-    font-size: 0.8em;
-    color: #bdc3c7;
-    margin-top: 10px;
+  display: block;
+  font-size: 0.8em;
+  color: #bdc3c7;
+  margin-top: 10px;
 }
 
 /* Card Header Style */
 .timeline-item h3 {
-    color: #1abc9c;
-    font-weight: bold;
-    font-size: 1.1em;
+  color: #1abc9c;
+  font-weight: bold;
+  font-size: 1.1em;
 }
 
 .timeline-item:hover h3 {
-    color: #ecf0f1; /* Invert text color on hover */
+  color: #ecf0f1; /* Invert text color on hover */
 }
 
 /* Timeline content */
 .timeline-content {
-    background-color: #34495e;
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeInUp 0.5s forwards;
+  /* Removed redundant styles already in .timeline-item */
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.5s forwards;
 }
 
 /* Timeline item title */
 .timeline-content h3 {
-    margin: 0;
-    font-size: 1.2em;
-    color: #1abc9c;
+  margin: 0;
+  font-size: 1.2em;
+  color: #1abc9c;
 }
 
 /* Timeline item description */
 .timeline-content p {
-    margin: 5px 0;
-    font-size: 0.9em;
-    color: #ecf0f1;
+  margin: 5px 0;
+  font-size: 0.9em;
+  color: #ecf0f1;
 }
 
 /* Timeline item date */
 .timeline-date {
-    font-size: 0.8em;
-    color: #bdc3c7;
+  font-size: 0.8em;
+  color: #bdc3c7;
 }
 
 /* Animation for fade-in effect */
 @keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
 
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Statistics Section */
 #statistics-section {
-    background-color: #34495e;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-#statistics-section:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  /* Styles are applied to the .card in index.html */
+  padding: 0; /* Card already has padding */
 }
 
 #languageChart {
-    max-width: 100%;
-    height: auto;
-    background-color: transparent; /* Ensure there's no background on the chart */
+  max-width: 100%;
+  height: auto;
+  background-color: transparent; /* Ensure there's no background on the chart */
 }
 
 /* Adjust padding around the chart to fit well within the card */
 #stats {
-    margin-top: 20px;
-    padding: 0;
-    text-align: center;
+  margin-top: 20px;
+  padding: 0;
+  text-align: center;
 }
 
 /* Ensure Profile Image Responsiveness */
 @media (max-width: 768px) {
-    .profile-section {
-        flex-direction: column;
-        text-align: center;
-    }
+  .profile-section {
+    flex-direction: column;
+    text-align: center;
+  }
 
-    .profile-image img {
-        margin-right: 0;
-        margin-bottom: 15px;
-    }
+  .profile-image img {
+    margin-right: 0;
+    margin-bottom: 15px;
+  }
+
+  .row {
+    grid-template-columns: 1fr; /* Stack columns */
+  }
 }
 @media (max-width: 480px) {
-    .profile-section {
-        padding: 15px;
-    }
+  .profile-section {
+    padding: 15px;
+  }
 
-    .row {
-        grid-template-columns: 1fr; /* Stack columns on smaller screens */
-    }
+  .card {
+    padding: 15px;
+  }
 
-    .card {
-        padding: 10px;
-    }
-
-    .card h2 {
-        font-size: 1.2em;
-    }
+  .card h2 {
+    font-size: 1.4em;
+  }
 }

@@ -1,4 +1,24 @@
-<div id="repositories" class="card-list">
-    <p>Loading repositories...</p>
+<h2>My Repositories</h2>
+
+<div class="filter-container">
+  <button
+    class="filter-icon"
+    id="filter-toggle-btn"
+    aria-label="Toggle filters"
+  >
+    <i class="fas fa-filter"></i>
+  </button>
+  <div class="filters" id="filters-dropdown">
+    <select id="language-filter" aria-label="Filter by language">
+      <option value="">All Languages</option>
+    </select>
+    <button class="search-button" id="apply-filter-btn">Apply</button>
+  </div>
 </div>
-<button id="load-more-repos-btn" class="load-more-btn">Load More Repositories</button>
+
+<div id="repositories" class="card-list">
+  <p>Loading repositories...</p>
+</div>
+<button id="load-more-repos-btn" class="load-more-btn">
+  Load More Repositories
+</button>
