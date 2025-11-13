@@ -100,10 +100,11 @@ function createPackageCard(pkg) {
     popularityScore: 0,
     grantedPoints: 0,
   };
-  const maxPoints = 140;
+  const maxPoints = 140; // Default, but score.maxPoints is better if available
 
   const popularity = Math.round((score.popularityScore || 0) * 100);
   const pubPoints = score.grantedPoints || 0;
+  const likeCount = score.likeCount || 0;
 
   card.innerHTML = `
         <div class="pub-package-header">
@@ -116,12 +117,12 @@ function createPackageCard(pkg) {
         <div class="pub-package-footer">
             <div class="stat">
                 <i class="fas fa-heart"></i>
-                <strong>${score.likeCount}</strong>
+                <strong>${likeCount}</strong>
                 <span>Likes</span>
             </div>
             <div class="stat">
                 <i class="fas fa-certificate"></i>
-                <strong>${pubPoints}/${maxPoints}</strong>
+                <strong>${pubPoints}/${score.maxPoints || maxPoints}</strong>
                 <span>Pub Points</span>
             </div>
             <div class="stat">
@@ -132,6 +133,9 @@ function createPackageCard(pkg) {
         </div>
     `;
 
+  /**
+   * Adds the redirect interaction to the card.
+   */
   card.addEventListener("click", () => {
     window.open(latest.package_url, "_blank");
   });
