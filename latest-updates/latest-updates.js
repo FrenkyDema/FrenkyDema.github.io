@@ -68,23 +68,27 @@ function getEventDescription(event) {
   let description = "No detailed description available.";
 
   try {
+    // --- BUG FIX: Changed event.playload to event.payload ---
     if (
       event.type === "PushEvent" &&
-      event.playload.commits &&
+      event.payload &&
+      event.payload.commits &&
       event.payload.commits.length > 0
     ) {
       description = event.payload.commits[0].message;
     } else if (
       event.type === "PullRequestEvent" &&
+      event.payload &&
       event.payload.pull_request
     ) {
       description = event.payload.pull_request.title;
     } else if (
       (event.type === "IssuesEvent" || event.type === "IssueCommentEvent") &&
+      event.payload &&
       event.payload.issue
     ) {
       description = event.payload.issue.title;
-    } else if (event.type === "CreateEvent") {
+    } else if (event.type === "CreateEvent" && event.payload) {
       description = `Created ${event.payload.ref_type}: ${
         event.payload.ref || event.repo.name
       }`;

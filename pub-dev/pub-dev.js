@@ -1,8 +1,8 @@
 /**
  * A proxy URL to bypass CORS restrictions.
- * We use allorigins.win which wraps the response in JSON.
+ * We use corsproxy.io which passes the response directly.
  */
-const PROXY_URL = "https://api.allorigins.win/get?url=";
+const PROXY_URL = "https://corsproxy.io/?";
 
 /**
  * Fetches the list of packages from a publisher and then fetches detailed
@@ -16,20 +16,17 @@ function fetchPubDevPackages() {
   }
 
   // Step 1: Define the target URL and encode it
-  const searchUrl = "https_://pub.dev/api/search?q=publisher:francescodema.dev";
+  const searchUrl = "https://pub.dev/api/search?q=publisher:francescodema.dev";
   const proxiedSearchUrl = PROXY_URL + encodeURIComponent(searchUrl);
 
   fetch(proxiedSearchUrl)
     .then((response) => {
       if (!response.ok) {
-        throw new Error("Failed to fetch from proxy.");
+        throw new Error("Failed to fetch from proxy for search.");
       }
-      return response.json(); // Get the proxy's JSON response
+      return response.json(); // This is now the direct JSON from pub.dev
     })
-    .then((data) => {
-      // The actual content is inside the 'contents' property as a string
-      const searchResult = JSON.parse(data.contents);
-
+    .then((searchResult) => {
       if (!searchResult.packages || searchResult.packages.length === 0) {
         throw new Error("No packages found for this publisher.");
       }
@@ -40,8 +37,14 @@ function fetchPubDevPackages() {
         const proxiedDetailUrl = PROXY_URL + encodeURIComponent(detailUrl);
 
         return fetch(proxiedDetailUrl)
-          .then((response) => response.json())
-          .then((data) => JSON.parse(data.contents)) // Parse the content string
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error(
+                `Package details not found: ${pkgSummary.package}`
+              );
+            }
+            return response.json(); // Direct JSON
+          })
           .catch((error) => {
             console.error(error);
             return null; // Return null on error
