@@ -24,9 +24,11 @@
         <div class="card" id="repositories-section"></div>
         <div class="card" id="statistics-section"></div>
       </div>
+
+      <div class="card" id="pub-dev-section"></div>
     </div>
 
-    <script src="https://cdn.jsdelivr.nrt pm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
       /**
        * Loads HTML content into a specified section and then loads an associated script.
@@ -61,9 +63,8 @@
           .catch((error) => console.error("Error loading section:", error));
       }
 
-      // This line loads your profile
+      // Load the sections and their respective scripts
       loadSection("profile-section", "profile/profile.html");
-
       loadSection(
         "latest-updates-section",
         "latest-updates/latest-updates.html",
@@ -78,6 +79,12 @@
         "statistics-section",
         "statistics/statistics.html",
         "statistics/statistics.js"
+      );
+      // New section added
+      loadSection(
+        "pub-dev-section",
+        "pub-dev/pub-dev.html",
+        "pub-dev/pub-dev.js"
       );
     </script>
   </body>
