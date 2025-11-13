@@ -1,6 +1,6 @@
-let repositoriesData = []; // Array to hold all fetched repositories
-let filteredRepositoriesData = []; // Array to hold filtered repositories
-let repoIndex = 0; // Index to track how many repositories are loaded at a time
+let repositoriesData = [];
+let filteredRepositoriesData = [];
+let repoIndex = 0;
 const REPOS_PER_PAGE = 3;
 
 /**
@@ -21,10 +21,9 @@ function fetchRepositories() {
       console.log("Repositories fetched:", data);
       repositoriesData = data.sort(
         (a, b) => new Date(b.updated_at) - new Date(a.updated_at)
-      ); // Sort by most recent
-      filteredRepositoriesData = [...repositoriesData]; // Initially, all repos are shown
+      );
+      filteredRepositoriesData = [...repositoriesData];
 
-      // Explicitly remove the "Loading repositories..." <p> element
       const reposContainer = document.getElementById("repositories");
       const loadingMessage = reposContainer.querySelector("p");
       if (loadingMessage) {
@@ -34,7 +33,7 @@ function fetchRepositories() {
 
       populateLanguageFilter(repositoriesData);
       setupFilterEventListeners();
-      displayRepositories(); // Load the first set of repositories
+      displayRepositories();
     })
     .catch((error) => {
       document.getElementById("repositories").innerHTML =
@@ -97,33 +96,32 @@ function applyFilter() {
     );
   }
 
-  // Hide the dropdown after applying
   const filtersDropdown = document.getElementById("filters-dropdown");
   if (filtersDropdown) {
     filtersDropdown.style.display = "none";
   }
 
-  displayRepositories(); // Re-display repos with the filter
+  displayRepositories();
 }
 
 /**
  * Clears and resets the repository list, then loads the first batch.
  */
 function displayRepositories() {
-  repoIndex = 0; // Reset index
-  document.getElementById("repositories").innerHTML = ""; // Clear current repos
+  repoIndex = 0;
+  document.getElementById("repositories").innerHTML = "";
 
   const loadMoreBtn = document.getElementById("load-more-repos-btn");
   if (loadMoreBtn) {
-    loadMoreBtn.style.display = "inline-block"; // Show button
+    loadMoreBtn.style.display = "inline-block";
   }
 
   if (filteredRepositoriesData.length === 0) {
     document.getElementById("repositories").innerHTML =
       "<p>No repositories found matching the filter.</p>";
-    if (loadMoreBtn) loadMoreBtn.style.display = "none"; // Hide button if no repos
+    if (loadMoreBtn) loadMoreBtn.style.display = "none";
   } else {
-    loadMoreRepositories(); // Load first batch
+    loadMoreRepositories();
   }
 }
 
@@ -139,7 +137,6 @@ function loadMoreRepositories() {
     const repoElement = document.createElement("div");
     repoElement.classList.add("repository-card");
 
-    // Updated innerHTML to include icons and better structure
     repoElement.innerHTML = `
             <div class="repository-header">
                 <h3>${repo.name}</h3>
@@ -164,22 +161,18 @@ function loadMoreRepositories() {
 
   repoIndex = nextIndex;
 
-  // Hide load more button if all repositories are loaded
   const loadMoreBtn = document.getElementById("load-more-repos-btn");
   if (loadMoreBtn && repoIndex >= filteredRepositoriesData.length) {
     loadMoreBtn.style.display = "none";
   } else if (loadMoreBtn) {
-    // Scroll smoothly to the new repositories
     reposContainer.lastElementChild.scrollIntoView({ behavior: "smooth" });
   }
 }
 
-// Add event listener for the "Load More" button
-const loadMoreBtn = document.getElementById("load-more-repos-btn");
-if (loadMoreBtn) {
-  loadMoreBtn.addEventListener("click", loadMoreRepositories);
+const loadMoreBtnGlobal = document.getElementById("load-more-repos-btn");
+if (loadMoreBtnGlobal) {
+  loadMoreBtnGlobal.addEventListener("click", loadMoreRepositories);
 } else {
-  // Wait for the element to be loaded
   document.addEventListener("DOMContentLoaded", () => {
     document
       .getElementById("load-more-repos-btn")
@@ -187,6 +180,5 @@ if (loadMoreBtn) {
   });
 }
 
-// Initialize repositories on page load
 fetchRepositories();
 console.log("fetchRepositories function has been called.");

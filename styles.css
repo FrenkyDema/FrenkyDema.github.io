@@ -13,12 +13,12 @@ body {
   justify-content: center;
   align-items: flex-start;
   min-height: 100vh;
-  overflow-x: hidden; /* Prevent horizontal scroll */
+  overflow-x: hidden;
 }
 
 /* Container styles */
 .container {
-  width: 100%; /* Full width */
+  width: 100%;
   padding: 20px;
   box-sizing: border-box;
 }
@@ -69,9 +69,9 @@ body {
 /* Row for columns */
 .row {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr; /* Three equal columns */
+  grid-template-columns: 1fr 1fr 1fr;
   gap: 20px;
-  margin-bottom: 20px; /* Added margin */
+  margin-bottom: 20px;
 }
 
 /* Card styles */
@@ -83,8 +83,8 @@ body {
   box-sizing: border-box;
   position: relative;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  display: flex; /* Added for better internal layout */
-  flex-direction: column; /* Stack content vertically */
+  display: flex;
+  flex-direction: column;
 }
 
 .card:hover {
@@ -106,7 +106,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 0; /* Ensure no top margin */
+  margin-top: 0;
 }
 
 /* Load More button */
@@ -214,8 +214,8 @@ body {
 
 /* Generic card list for repos, updates, etc. */
 .card-list {
-  flex-grow: 1; /* Allows list to fill card */
-  overflow-y: auto; /* Add scroll if content overflows */
+  flex-grow: 1;
+  overflow-y: auto;
 }
 
 /* Repository card styles */
@@ -316,12 +316,23 @@ body {
   z-index: 1;
 }
 
+/* --- COLOR FIX --- */
 .timeline-item:hover {
-  background-color: #1abc9c;
+  background-color: #1abc9c; /* Bright background on hover */
   transform: translateY(-5px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   z-index: 2;
 }
+
+.timeline-item:hover h3 {
+  color: #2c3e50; /* Dark text for contrast */
+}
+
+.timeline-item:hover p,
+.timeline-item:hover .timeline-date {
+  color: #34495e; /* Dark text for contrast */
+}
+/* --- END COLOR FIX --- */
 
 /* Timeline icon */
 .timeline-icon {
@@ -346,6 +357,7 @@ body {
   margin: 0;
   color: #ecf0f1;
   font-size: 1em;
+  transition: color 0.3s ease; /* Added transition */
 }
 
 .timeline-item p {
@@ -358,16 +370,13 @@ body {
   font-size: 0.8em;
   color: #bdc3c7;
   margin-top: 10px;
+  transition: color 0.3s ease; /* Added transition */
 }
 
 .timeline-item h3 {
   color: #1abc9c;
   font-weight: bold;
   font-size: 1.1em;
-}
-
-.timeline-item:hover h3 {
-  color: #ecf0f1;
 }
 
 .timeline-content {
@@ -383,7 +392,7 @@ body {
   align-items: center;
 }
 
-/* NEW Key Metrics styles */
+/* Key Metrics styles */
 .key-metrics-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -417,7 +426,6 @@ body {
   font-size: 0.9em;
   color: #bdc3c7;
 }
-/* END Key Metrics styles */
 
 #languageChart {
   max-width: 100%;
@@ -425,7 +433,7 @@ body {
   background-color: transparent;
 }
 
-/* NEW Pub.dev Section styles */
+/* Pub.dev Section styles */
 .pub-package-list {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -441,6 +449,7 @@ body {
   transition: background-color 0.3s ease, transform 0.3s ease;
   display: flex;
   flex-direction: column;
+  cursor: pointer;
 }
 
 .pub-package-card:hover {
@@ -501,7 +510,6 @@ body {
   color: #1abc9c;
   margin-right: 5px;
 }
-/* END Pub.dev styles */
 
 /* Animation for fade-in effect */
 @keyframes fadeInUp {
@@ -519,6 +527,11 @@ body {
 @media (max-width: 1024px) {
   .row {
     grid-template-columns: 1fr 1fr; /* 2 columns for tablets */
+  }
+
+  /* --- MOBILE FIX --- */
+  .key-metrics-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 metrics per row on tablet */
   }
 }
 
@@ -541,9 +554,23 @@ body {
     grid-template-columns: 1fr; /* Stack key metrics */
   }
 }
+
 @media (max-width: 480px) {
+  .container {
+    padding: 10px; /* Reduce padding on very small screens */
+  }
+
   .profile-section {
     padding: 15px;
+  }
+
+  /* --- MOBILE FIX --- */
+  .profile-info h1 {
+    font-size: 1.8em; /* Reduce main title size */
+  }
+
+  .profile-info p {
+    font-size: 0.95em; /* Adjust paragraph text */
   }
 
   .card {
@@ -552,10 +579,6 @@ body {
 
   .card h2 {
     font-size: 1.4em;
-  }
-
-  .key-metrics-grid {
-    grid-template-columns: 1fr;
   }
 
   .pub-package-footer {

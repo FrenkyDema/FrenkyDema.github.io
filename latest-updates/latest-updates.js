@@ -25,7 +25,7 @@ function fetchUpdates() {
         console.error("Load more updates button not found");
       }
 
-      loadMoreUpdates(); // Load the first set
+      loadMoreUpdates();
     })
     .catch((error) => {
       const timelineContainer = document.getElementById("timeline");
@@ -55,7 +55,7 @@ function getIconForEventType(eventType) {
   } else if (eventType.includes("Fork")) {
     return "fas fa-code-branch";
   }
-  return "fas fa-code-branch"; // Default icon
+  return "fas fa-code-branch";
 }
 
 /**
@@ -95,7 +95,6 @@ function getEventDescription(event) {
     console.warn("Could not parse event description:", e, event);
   }
 
-  // Truncate long descriptions
   if (description.length > 100) {
     description = description.substring(0, 100) + "...";
   }
@@ -141,7 +140,7 @@ function loadMoreUpdates() {
   const loadMoreBtn = document.getElementById("load-more-updates-btn");
   if (loadMoreBtn) {
     if (currentUpdateIndex >= allUpdatesData.length) {
-      loadMoreBtn.style.display = "none"; // Corrected ID
+      loadMoreBtn.style.display = "none";
     } else {
       if (timelineContainer.lastElementChild) {
         timelineContainer.lastElementChild.scrollIntoView({

@@ -1,11 +1,6 @@
 /**
- * A list of your package names as they appear on pub.dev.
- * !! IMPORTANT: You must update this list manually.
- */
-const MY_PACKAGES = ["sunmi_scanner", "valorant_translator"];
-
-/**
- * Fetches data for all packages from the pub.dev API and displays them.
+ * Fetches the list of packages from a publisher and then fetches detailed
+ * scores for each package.
  */
 function fetchPubDevPackages() {
   const packageListContainer = document.getElementById("pub-package-list");
@@ -14,47 +9,69 @@ function fetchPubDevPackages() {
     return;
   }
 
-  // Create a fetch promise for each package
-  const fetchPromises = MY_PACKAGES.map((pkgName) => {
-    return fetch(`https://pub.dev/api/packages/${pkgName}`)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`Package not found: ${pkgName}`);
-        }
-        return response.json();
-      })
-      .catch((error) => {
-        console.error(error);
-        return null; // Return null on error so Promise.all doesn't fail
+  // Step 1: Search for packages by publisher
+  fetch("https://pub.dev/api/search?q=publisher:francescodema.dev")
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Failed to search for publisher.");
+      }
+      return response.json();
+    })
+    .then((searchResult) => {
+      if (!searchResult.packages || searchResult.packages.length === 0) {
+        throw new Error("No packages found for this publisher.");
+      }
+
+      // Step 2: Create a list of promises to fetch details for each package
+      const fetchPromises = searchResult.packages.map((pkgSummary) => {
+        return fetch(`https://pub.dev/api/packages/${pkgSummary.package}`)
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error(
+                `Package details not found: ${pkgSummary.package}`
+              );
+            }
+            return response.json();
+          })
+          .catch((error) => {
+            console.error(error);
+            return null; // Return null on error
+          });
       });
-  });
 
-  // When all fetches are complete
-  Promise.all(fetchPromises).then((allPackageData) => {
-    // Filter out any packages that failed to load
-    const validPackages = allPackageData.filter((pkg) => pkg !== null);
+      // Step 3: Wait for all detail fetches to complete
+      return Promise.all(fetchPromises);
+    })
+    .then((allPackageData) => {
+      const validPackages = allPackageData.filter((pkg) => pkg !== null);
 
-    if (validPackages.length === 0) {
-      packageListContainer.innerHTML =
-        "<p>Could not load any pub.dev packages.</p>";
-      return;
-    }
+      if (validPackages.length === 0) {
+        packageListContainer.innerHTML =
+          "<p>Could not load any pub.dev packages.</p>";
+        return;
+      }
 
-    // Clear "Loading..." message
-    packageListContainer.innerHTML = "";
+      packageListContainer.innerHTML = "";
 
-    // Sort packages by popularity
-    validPackages.sort(
-      (a, b) =>
-        (b.score?.popularityScore || 0) - (a.score?.popularityScore || 0)
-    );
+      // Sort packages by popularity
+      validPackages.sort(
+        (a, b) =>
+          (b.score?.popularityScore || 0) - (a.score?.popularityScore || 0)
+      );
 
-    // Create and append a card for each package
-    validPackages.forEach((pkg) => {
-      const card = createPackageCard(pkg);
-      packageListContainer.appendChild(card);
+      validPackages.forEach((pkg) => {
+        const card = createPackageCard(pkg);
+        packageListContainer.appendChild(card);
+      });
+    })
+    .catch((error) => {
+      console.error("Error fetching pub.dev packages:", error);
+      if (packageListContainer) {
+        packageListContainer.innerHTML = `<p>${
+          error.message || "Could not load packages."
+        }</p>`;
+      }
     });
-  });
 }
 
 /**
@@ -72,9 +89,8 @@ function createPackageCard(pkg) {
     popularityScore: 0,
     grantedPoints: 0,
   };
-  const maxPoints = 140; // As of pub.dev's current max score
+  const maxPoints = 140;
 
-  // Convert scores to percentages
   const popularity = Math.round((score.popularityScore || 0) * 100);
   const pubPoints = score.grantedPoints || 0;
 
@@ -105,7 +121,6 @@ function createPackageCard(pkg) {
         </div>
     `;
 
-  // Make the whole card clickable
   card.addEventListener("click", () => {
     window.open(latest.package_url, "_blank");
   });
@@ -114,5 +129,4 @@ function createPackageCard(pkg) {
   return card;
 }
 
-// Start fetching the packages
 fetchPubDevPackages();

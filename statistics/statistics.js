@@ -70,7 +70,6 @@ function createLanguageChart(repos) {
     }
   });
 
-  // Sort languages by count, descending
   const sortedLanguages = Object.entries(languages).sort(
     ([, countA], [, countB]) => countB - countA
   );
@@ -92,7 +91,7 @@ function createLanguageChart(repos) {
             "#e67e22",
             "#2ecc71",
           ],
-          borderColor: "#34495e", // Match card background
+          borderColor: "#34495e",
         },
       ],
     },
@@ -102,7 +101,7 @@ function createLanguageChart(repos) {
         legend: {
           position: "bottom",
           labels: {
-            color: "#ecf0f1", // Set legend text color
+            color: "#ecf0f1",
           },
         },
       },
