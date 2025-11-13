@@ -38,24 +38,16 @@ function fetchPubDevPackages() {
         const proxiedDetailUrl = PROXY_URL + detailUrl;
         const proxiedScoreUrl = PROXY_URL + scoreUrl;
 
-        // Fetch both details and score concurrently
         const detailPromise = fetch(proxiedDetailUrl).then((res) => res.json());
         const scorePromise = fetch(proxiedScoreUrl).then((res) => res.json());
 
         // Combine them when both are done
         return Promise.all([detailPromise, scorePromise])
           .then(([detailData, scoreData]) => {
-            // --- As requested: Logging the raw data ---
-            console.log(`Data for ${pkgSummary.package}:`, {
-              detail: detailData,
-              score: scoreData,
-            });
-            // --- End of log ---
-
-            // Combine the results into the structure our card function expects
+            // --- FIX: The scoreData *is* the score object ---
             return {
               latest: detailData.latest, // Get 'latest' from detail
-              score: scoreData.score, // Get 'score' from score
+              score: scoreData, // Use the whole scoreData object
             };
           })
           .catch((error) => {
@@ -86,10 +78,6 @@ function fetchPubDevPackages() {
       );
 
       validPackages.forEach((pkg) => {
-        // --- As requested: Logging the combined object ---
-        console.log("Creating card with combined data:", pkg);
-        // --- End of log ---
-
         const card = createPackageCard(pkg);
         packageListContainer.appendChild(card);
       });
@@ -113,7 +101,6 @@ function createPackageCard(pkg) {
   const card = document.createElement("div");
   card.classList.add("pub-package-card");
 
-  // Now 'pkg.latest' and 'pkg.score' are both present
   const latest = pkg.latest;
   const score = pkg.score || {
     likeCount: 0,
@@ -122,6 +109,7 @@ function createPackageCard(pkg) {
   };
   const maxPoints = 140;
 
+  // Use the values from the score object
   const popularity = Math.round((score.popularityScore || 0) * 100);
   const pubPoints = score.grantedPoints || 0;
   const likeCount = score.likeCount || 0;
