@@ -68,7 +68,7 @@ function getEventDescription(event) {
   let description = "No detailed description available.";
 
   try {
-    // --- BUG FIX: Changed event.playload to event.payload ---
+    // --- BUG FIX: Check for event.payload and its properties safely ---
     if (
       event.type === "PushEvent" &&
       event.payload &&

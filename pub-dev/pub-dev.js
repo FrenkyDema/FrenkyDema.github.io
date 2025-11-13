@@ -1,8 +1,8 @@
 /**
  * A proxy URL to bypass CORS restrictions.
- * We use corsproxy.io which passes the response directly.
+ * We use api.codetabs.com which passes the response directly.
  */
-const PROXY_URL = "https://corsproxy.io/?";
+const PROXY_URL = "https://api.codetabs.com/v1/proxy?quest=";
 
 /**
  * Fetches the list of packages from a publisher and then fetches detailed
@@ -15,9 +15,9 @@ function fetchPubDevPackages() {
     return;
   }
 
-  // Step 1: Define the target URL and encode it
+  // Step 1: Define the target URL and create the proxied URL
   const searchUrl = "https://pub.dev/api/search?q=publisher:francescodema.dev";
-  const proxiedSearchUrl = PROXY_URL + encodeURIComponent(searchUrl);
+  const proxiedSearchUrl = PROXY_URL + searchUrl;
 
   fetch(proxiedSearchUrl)
     .then((response) => {
@@ -34,7 +34,7 @@ function fetchPubDevPackages() {
       // Step 2: Create a list of promises to fetch details for each package
       const fetchPromises = searchResult.packages.map((pkgSummary) => {
         const detailUrl = `https://pub.dev/api/packages/${pkgSummary.package}`;
-        const proxiedDetailUrl = PROXY_URL + encodeURIComponent(detailUrl);
+        const proxiedDetailUrl = PROXY_URL + detailUrl;
 
         return fetch(proxiedDetailUrl)
           .then((response) => {
