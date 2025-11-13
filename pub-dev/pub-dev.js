@@ -107,12 +107,12 @@ function createPackageCard(pkg) {
     popularityScore: 0,
     grantedPoints: 0,
   };
-  const maxPoints = 140;
 
-  // Use the values from the score object
+  // Use the data from the fetched score object
   const popularity = Math.round((score.popularityScore || 0) * 100);
   const pubPoints = score.grantedPoints || 0;
   const likeCount = score.likeCount || 0;
+  const maxPoints = score.maxPoints || 140; // Use maxPoints from API if available
 
   card.innerHTML = `
         <div class="pub-package-header">
@@ -130,7 +130,7 @@ function createPackageCard(pkg) {
             </div>
             <div class="stat">
                 <i class="fas fa-certificate"></i>
-                <strong>${pubPoints}/${score.maxPoints || maxPoints}</strong>
+                <strong>${pubPoints}/${maxPoints}</strong>
                 <span>Pub Points</span>
             </div>
             <div class="stat">
